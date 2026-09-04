@@ -99,6 +99,15 @@
             font-weight: bold;
         }
 
+        /* Tab Content Control */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         /* Anomaly Profile Card */
         .anomaly-card {
             background: var(--panel-bg);
@@ -231,14 +240,18 @@
     </header>
 
     <div class="nav-tabs">
-        <button class="tab-btn active">TAO-001 (Cardall)</button>
-        <button class="tab-btn" onclick="alert('Arsip TAO-002 masih dalam proses penguncian data.')">TAO-002 [LOCKED]</button>
-        <button class="tab-btn" onclick="alert('Arsip TAO-003 masih dalam proses penguncian data.')">TAO-003 [LOCKED]</button>
+        <button class="tab-btn active" onclick="switchTab('tao-001')">TAO-001 (Cardall)</button>
+        <button class="tab-btn" onclick="switchTab('tao-002')">TAO-002 (Imawri)</button>
+        <button class="tab-btn" onclick="switchTab('tao-003')">TAO-003 (The Paralyzing Radio)</button>
+        <button class="tab-btn" onclick="switchTab('tao-004')">TAO-004 (The Echo Doll)</button>
+        <button class="tab-btn" onclick="switchTab('tao-005')">TAO-005 (The Living Painting)</button>
+        <button class="tab-btn" onclick="switchTab('tao-006')">TAO-006 (The Broken Watchmaker)</button>
     </div>
 
-    <main class="anomaly-card">
+    <!-- TAB TAO-001 (CARDALL) -->
+    <main id="tao-001" class="anomaly-card tab-content active">
         <div class="badge-container">
-            <span class="badge badge-tier">Tier 0: Boundless</span>
+            <span class="badge badge-tier">Tier 0: Absolute Boundless</span>
             <span class="badge badge-status">Uncontainable</span>
         </div>
 
@@ -252,7 +265,7 @@
             </div>
             <div class="info-item">
                 <span>Klasifikasi</span>
-                <strong>Apex / Reality Warper</strong>
+                <strong>Apex / Reality Warper / Absolute Free Entity</strong>
             </div>
             <div class="info-item">
                 <span>Status Penahanan</span>
@@ -266,7 +279,7 @@
 
         <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
         <p>
-            TAO-001 ("Cardall") adalah anomali pertama dan tertinggi yang terdeteksi oleh Organisasi TAO. Memegang status tertinggi sebagai <strong>Dewa Utama TAO</strong>, entitas ini memiliki kecerdasan tanpa batas (boundless IQ), manipulasi realitas subatomik, adaptasi mutlak, serta kemampuan memanifestasikan kartu fisik secara instan.
+            TAO-001 ("Cardall") adalah anomali pertama dan tertinggi yang terdeteksi oleh Organisasi TAO. Memegang status tertinggi sebagai <strong>Dewa Utama TAO</strong>, entitas ini memiliki kecerdasan tanpa batas (boundless IQ), manipulasi realitas subatomik, adaptasi mutlak, serta kemampuan memanifestasikan kartu fisik secara instan. Cardall berdiri di atas seluruh struktur hierarki eksistensi, menjadikannya entitas yang tidak terikat oleh konsep atau hukum apa pun.
         </p>
 
         <div class="section-title">II. PROFIL ATRIBUT ABSOLUT</div>
@@ -275,9 +288,10 @@
             <li><strong>Boundless IQ:</strong> Mampu mengkalkulasi dan memproses seluruh variabel di alam semesta secara instan tanpa terikat batasan logika.</li>
             <li><strong>Penginderaan Dinamis:</strong> Seluruh indra dapat disesuaikan kepekaannya secara bebas, dari skala makro hingga mendeteksi getaran tingkat subatomik.</li>
             <li><strong>Extreme Adaptation & OP Physicals:</strong> Daya hancur dan kelincahan fisik tanpa batas yang dirancang untuk efisiensi pertempuran mutlak, serta beradaptasi instan terhadap segala ancaman.</li>
+            <li><strong>Kebebasan Mutlak & Immortality Sejati (Absolute Transcendence):</strong> Entitas ini 100% bebas dari segala hukum, hierarki, atau tingkat ketiadaan (termasuk intervensi dari entitas tingkat Boundless atau penghapusan konsep). Jika wujud, konsep, atau eksistensinya dihapus oleh entitas mana pun, Cardall tidak akan terhapus dan akan tetap eksis secara mutlak di dunia, dimensi, atau ketiadaan mana pun tanpa terpengaruh sedikit pun.</li>
         </ul>
 
-        <div class="section-title">III. KEMAPUAN ANOMALI UTAMA</div>
+        <div class="section-title">III. KEMAMPUAN ANOMALI UTAMA</div>
         <ul>
             <li><strong>Manifestasi & Penyalinan Kartu (Card Reiteration):</strong> Mampu menyalin, meniru, atau menciptakan skill, teknik, atau konsep apa pun menjadi bentuk kartu fisik secara instan lewat pemikiran.</li>
             <li><strong>Penyegelan Kartu (Card Imprisonment):</strong> Mengubah entitas lain, materi, atau area di sekitarnya menjadi kartu fisik untuk dikurung secara mutlak.</li>
@@ -295,9 +309,293 @@
         </p>
     </main>
 
+    <!-- TAB TAO-002 (IMAWRI) -->
+    <main id="tao-002" class="anomaly-card tab-content">
+        <div class="badge-container">
+            <span class="badge badge-tier">Tier 0: Boundless</span>
+            <span class="badge badge-status">Uncontainable</span>
+        </div>
+
+        <h1 class="anomaly-id">TAO-002: "IMAWRI"</h1>
+        <div class="anomaly-alias">Gelar: The Stellar Terror / Cosmic Hawk Enforcer</div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <span>Wujud Visual</span>
+                <strong>Elang Raksasa Bungkuk (Avian Terror)</strong>
+            </div>
+            <div class="info-item">
+                <span>Klasifikasi</span>
+                <strong>Predator Kosmik / Omniscient</strong>
+            </div>
+            <div class="info-item">
+                <span>Status Penahanan</span>
+                <strong>Tidak Dapat Dikurung</strong>
+            </div>
+            <div class="info-item">
+                <span>Tingkat Ancaman</span>
+                <strong>Catastrophic / Cosmic Extinction</strong>
+            </div>
+        </div>
+
+        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
+        <p>
+            TAO-002 ("Imawri") adalah entitas anomali kosmik berbentuk elang raksasa dengan posisi berdiri agak membungkuk. Seluruh organ dalamnya bukan berupa sel biologis, melainkan susunan gugusan bintang aktif. Memiliki kesadaran yang terhubung langsung ke seluruh multiverse, kekuatan api adaptif yang membakar molekul udara tanpa butuh oksigen, serta persepsi waktu tanpa batas.
+        </p>
+
+        <div class="section-title">II. ANATOMI & FISIOLOGI KOSMIK</div>
+        <ul>
+            <li><strong>Organ Tubuh Bintang (Stellar Anatomy):</strong> Tidak memiliki organ biologis standar (jantung, paru-paru, dll.). Seluruh fungsi vital digantikan oleh gugusan bintang dan nebula aktif. Tidak membutuhkan respirasi, makanan, atau oksigen.</li>
+            <li><strong>Lingkungan Terbakar Spontan:</strong> Panas tubuhnya membakar udara di sekitarnya secara konstan. Mampu berjalan di atas permukaan apa pun, termasuk ruang hampa, konsep, maupun dimensi abstrak.</li>
+            <li><strong>Total Apathy (Kebal Emosi):</strong> Memiliki kondisi emosional yang sama dengan TAO-001 (kebal terhadap manipulasi psikologis, rasa takut, rasa sakit, atau empati).</li>
+            <li><strong>Persepsi Waktu Lambat (Absolute Speed):</strong> Memiliki kecepatan Boundless/Irrelevant. Seluruh pergerakan objek dan eksistensi di multiverse terasa bergerak sangat lambat dalam pandangannya.</li>
+        </ul>
+
+        <div class="section-title">III. KEMAMPUAN ANOMALI UTAMA</div>
+        <ul>
+            <li><strong>Multiversal Neural Connection (Omniscience):</strong> Otak dan kesadarannya terhubung secara universal ke seluruh multiverse, membuatnya mengetahui seluruh informasi dan kejadian secara mutlak.</li>
+            <li><strong>Prekognisi 2 Hari (Precognition):</strong> Mengetahui seluruh kejadian yang akan terjadi secara pasti hingga 2 hari (48 jam) ke depan tanpa celah kesalahan.</li>
+            <li><strong>Adaptive Extinction Flame:</strong> Menyemburkan api yang secara otomatis beradaptasi menaikkan intensitasnya untuk menembus kekebalan lawan. Api ini tidak memerlukan udara dan tidak akan padam sampai target mati/tidak eksis.</li>
+            <li><strong>Pemantulan 10x Lipat (10x Reflection Amplification):</strong> Setiap serangan fisik, konsep, atau energi yang mengenai tubuhnya akan dipantulkan kembali ke penyerang dengan kekuatan 10 kali lipat secara instan.</li>
+            <li><strong>Regresi Eksistensi (Existence Regression):</strong> Mampu mengembalikan target (manusia, objek, atau materi) ke masa sebelum mereka diciptakan/dilahirkan hanya melalui niat pikiran.</li>
+            <li><strong>Manipulasi Cahaya, Kegelapan, & Api:</strong> Kontrol penuh atas spektrum cahaya, energi kegelapan, dan manipulasi elemen api skala multiversal.</li>
+            <li><strong>Regenerasi Bintang & Kehampaan (Void Regeneration):</strong> Mampu memulihkan wujud dan konsepnya secara instan bila terpapar sinar bintang, kegelapan, maupun ketiadaan (void).</li>
+            <li><strong>Hipnosis Mutlak:</strong> Mampu memanipulasi dan mengendalikan kesadaran makhluk apa pun tanpa terpengaruh tingkat ketahanan mental target.</li>
+        </ul>
+
+        <div class="section-title">IV. PROSEDUR PENANAHAN KHUSUS</div>
+        <p>
+            <strong>STATUS: UNCONTAINABLE (TIDAK DAPAT DIKURUNG).</strong>
+        </p>
+        <p>
+            Tidak ada teknologi atau kubah fisik yang mampu menahan TAO-002 karena keberadaannya membakar molekul udara di sekitarnya. Pengamatan hanya diperbolehkan melalui teleskop pemantau spektrum bintang jarak jauh. Personel diwajibkan menghindari kontak langsung.
+        </p>
+    </main>
+
+    <!-- TAB TAO-003 (THE PARALYZING RADIO) -->
+    <main id="tao-003" class="anomaly-card tab-content">
+        <div class="badge-container">
+            <span class="badge badge-tier">Class-Object</span>
+            <span class="badge badge-status">Containable</span>
+        </div>
+
+        <h1 class="anomaly-id">TAO-003: "THE PARALYZING RADIO"</h1>
+        <div class="anomaly-alias">Gelar: Echoes of Tomorrow / The Fate Transceiver</div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <span>Wujud Visual</span>
+                <strong>Radio Transceiver Klasik Pertengahan Abad ke-20</strong>
+            </div>
+            <div class="info-item">
+                <span>Klasifikasi</span>
+                <strong>Mental Hazard / Causality / Precognitive Sound</strong>
+            </div>
+            <div class="info-item">
+                <span>Status Penahanan</span>
+                <strong>Terkurung (Sektor-03)</strong>
+            </div>
+            <div class="info-item">
+                <span>Tingkat Ancaman</span>
+                <strong>Extreme (Psikologis & Fatal Otak)</strong>
+            </div>
+        </div>
+
+        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
+        <p>
+            TAO-003 adalah anomali berbentuk radio trans receiver tua berdesain retro/klasik. Meskipun fisiknya tampak rusak parah dan tidak terhubung ke sumber daya listrik apa pun, gelombang frekuensi analognya secara otomatis selalu memancarkan sinyal suara jernih di tengah frekuensi statis.
+        </p>
+
+        <div class="section-title">II. KEMAMPUAN ANOMALI UTAMA</div>
+        <ul>
+            <li><strong>Gema Masa Depan (Echoes of Tomorrow):</strong> Memancarkan suara rekaman percakapan atau skenario nyata yang pasti terjadi di masa depan dari subjek yang berada dalam radius pendengarannya.</li>
+            <li><strong>Keputusasaan Mutlak (Absolute Despair Trigger):</strong> Jika seseorang mendengar rekaman yang membeberkan detail kepastian kematiannya sendiri atau tragedi fatal terburuk yang akan menimpanya, efek anomali akan langsung menyerang sistem saraf pusat.</li>
+            <li><strong>Henti Fungsi Otak (Brain Shutdown):</strong> Korban yang terpapar tidak mengalami luka fisik eksternal, melainkan otaknya mengalami <i>shutdown</i> permanen (koma mati otak) akibat trauma psikologis ekstrem saat menerima kepastian takdir yang tidak bisa diubah.</li>
+        </ul>
+
+        <div class="section-title">III. PROSEDUR PENANAHAN KHUSUS</div>
+        <p>
+            <strong>STATUS: CONTAINED (TERKURUNG).</strong>
+        </p>
+        <p>
+            TAO-003 wajib dikunci di dalam peti berlapis timbal dan kedap suara (<i>Soundproof Vault</i>) di Sektor-03. Interaksi atau pemantauan sinyal dilarang keras menggunakan telinga manusia secara langsung. Transkripsi audio hanya diperbolehkan melalui perangkat AI penerjemah otomatis berbasis teks tanpa speaker pendengar.
+        </p>
+    </main>
+
+    <!-- TAB TAO-004 (THE ECHO DOLL) -->
+    <main id="tao-004" class="anomaly-card tab-content">
+        <div class="badge-container">
+            <span class="badge badge-tier">Class-Entity</span>
+            <span class="badge badge-status">Containable</span>
+        </div>
+
+        <h1 class="anomaly-id">TAO-004: "THE ECHO DOLL"</h1>
+        <div class="anomaly-alias">Gelar: Puppeteer of Concepts / The Mirror Faceless</div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <span>Wujud Visual</span>
+                <strong>Boneka Porselen Berwajah Cermin Polos</strong>
+            </div>
+            <div class="info-item">
+                <span>Klasifikasi</span>
+                <strong>Conceptual Erasure / Mimicry / Sympathetic Link</strong>
+            </div>
+            <div class="info-item">
+                <span>Status Penahanan</span>
+                <strong>Terkurung (Sektor-04)</strong>
+            </div>
+            <div class="info-item">
+                <span>Tingkat Ancaman</span>
+                <strong>Lethal / Conceptual Hazard</strong>
+            </div>
+        </div>
+
+        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
+        <p>
+            TAO-004 adalah entitas anomali berbentuk boneka porselen seukuran anak kecil. Fitur paling mencolok dari entitas ini adalah area wajahnya yang benar-benar polos tanpa organ mata, hidung, atau mulut, melainkan dilapisi permukaan halus berdaya pantul tinggi seperti cermin.
+        </p>
+
+        <div class="section-title">II. KEMAMPUAN ANOMALI UTAMA</div>
+        <ul>
+            <li><strong>Peniruan Konsep & Wujud (Conceptual Mimicry):</strong> Saat ada entitas atau manusia mendekatinya, permukaan wajah cermin TAO-004 akan membentuk cerminan wujud dan mengunci ikatan konsep (<i>sympathetic link</i>) dengan target tersebut.</li>
+            <li><strong>Pemotongan Konsep (Conceptual Severance / Durability Negation):</strong> Setelah ikatan terbentuk, setiap kerusakan fisik atau cedera yang dialami oleh boneka ini akan langsung berdampak pada targetnya secara konseptual.</li>
+            <li><strong>Penghapusan Bagian Tanpa Rasa Sakit:</strong> Jika bagian tubuh TAO-004 dipotong atau dihancurkan, bagian tubuh target yang setara akan lenyap seketika dari realitas tanpa pendarahan atau rasa sakit—seolah-olah bagian tubuh tersebut tidak pernah diciptakan.</li>
+        </ul>
+
+        <div class="section-title">III. PROSEDUR PENANAHAN KHUSUS</div>
+        <p>
+            <strong>STATUS: CONTAINED (TERKURUNG).</strong>
+        </p>
+        <p>
+            TAO-004 harus diletakkan di dalam ruang tertutup tanpa cermin dan diselimuti kain khusus penyerap pantulan. Seluruh personel yang memasuki ruang penahanan wajib menggunakan kacamata pembias pantulan (<i>anti-reflective visors</i>). Dilarang keras merusak fisik TAO-004 saat entitas ini terikat dengan personel di sekitarnya.
+        </p>
+    </main>
+
+    <!-- TAB TAO-005 (THE LIVING PAINTING) -->
+    <main id="tao-005" class="anomaly-card tab-content">
+        <div class="badge-container">
+            <span class="badge badge-tier">Class-Object</span>
+            <span class="badge badge-status">Containable</span>
+        </div>
+
+        <h1 class="anomaly-id">TAO-005: "THE LIVING PAINTING"</h1>
+        <div class="anomaly-alias">Gelar: Canvas of Erasure / The Frozen Horizon</div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <span>Wujud Visual</span>
+                <strong>Lukisan Minyak Pemandangan Era Renaissance</strong>
+            </div>
+            <div class="info-item">
+                <span>Klasifikasi</span>
+                <strong>Spatial Hazard / Dimensional Trap / Mind Trapper</strong>
+            </div>
+            <div class="info-item">
+                <span>Status Penahanan</span>
+                <strong>Terkurung (Sektor-05)</strong>
+            </div>
+            <div class="info-item">
+                <span>Tingkat Ancaman</span>
+                <strong>High / Spatial Hazard</strong>
+            </div>
+        </div>
+
+        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
+        <p>
+            TAO-005 adalah sebuah lukisan minyak berukuran 120x80 cm dengan bingkai kayu ukir kuno yang tidak dapat dihancurkan, dibakar, atau dipotong. Lukisan ini menggambarkan pemandangan lanskap kastil tua abad pertengahan yang sangat detail, lengkap dengan figur-figur kecil seperti prajurit, penduduk lokal, dan hewan liar di latarnya.
+        </p>
+
+        <div class="section-title">II. KEMAMPUAN ANOMALI UTAMA</div>
+        <ul>
+            <li><strong>Penyerapan Visual (Visual Absorption):</strong> Siapa pun yang menatap canvas lukisan ini secara langsung selama lebih dari 5 detik berturut-turut akan kehilangan kesadaran fisik. Tubuh dan jiwa korban akan langsung tertarik masuk ke dalam lukisan.</li>
+            <li><strong>Penghapusan Realitas Fisik (Physical Erasure):</strong> Tubuh korban di dunia nyata akan lenyap secara permanen tanpa meninggalkan jejak molekuler atau residu materi sama sekali.</li>
+            <li><strong>Realitas Statis Permanen (Static Trapping):</strong> Di dalam lukisan, korban terperangkap menjadi salah satu figur latar belakang baru (seperti prajurit kastil atau warga desa). Korban tetap sadar penuh secara mental, namun tubuhnya terkunci secara fisik dalam pose lukisan selamanya tanpa bisa bergerak atau bersuara.</li>
+        </ul>
+
+        <div class="section-title">III. PROSEDUR PENANAHAN KHUSUS</div>
+        <p>
+            <strong>STATUS: CONTAINED (TERKURUNG).</strong>
+        </p>
+
+        <p>
+            TAO-005 wajib disimpan di Sektor-05 dan selalu ditutup rapat menggunakan penutup kain serat baja tebal. Pengamatan visual langsung oleh manusia dilarang keras. Pemantauan ruang penahanan hanya diperbolehkan melalui sensor inframerah atau kamera termal tanpa keterlibatan pandangan mata manusia secara langsung.
+        </p>
+    </main>
+
+    <!-- TAB TAO-006 (THE BROKEN WATCHMAKER) -->
+    <main id="tao-006" class="anomaly-card tab-content">
+        <div class="badge-container">
+            <span class="badge badge-tier">Class-Entity</span>
+            <span class="badge badge-status">Containable</span>
+        </div>
+
+        <h1 class="anomaly-id">TAO-006: "THE BROKEN WATCHMAKER"</h1>
+        <div class="anomaly-alias">Gelar: Chronos Parasite / The Time Devourer</div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <span>Wujud Visual</span>
+                <strong>Humanoid Berjas Hitam dengan Wajah Roda Jam</strong>
+            </div>
+            <div class="info-item">
+                <span>Klasifikasi</span>
+                <strong>Time Warper / Temporal Hazard / Chrono Manipulator</strong>
+            </div>
+            <div class="info-item">
+                <span>Status Penahanan</span>
+                <strong>Terkurung (Sektor-06)</strong>
+            </div>
+            <div class="info-item">
+                <span>Tingkat Ancaman</span>
+                <strong>Extreme / Temporal Extinction</strong>
+            </div>
+        </div>
+
+        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
+        <p>
+            TAO-006 adalah entitas humanoid berwujud pria tua kurus yang mengenakan setelan jas hitam lusuh abad ke-19. Seluruh struktur wajahnya tidak memiliki organ biologis, melainkan dipenuhi oleh puluhan roda gigi jam mekanis (<i>clockwork gears</i>) dan jarum arloji kuno yang berputar konstan dengan suara derik mekanis.
+        </p>
+
+        <div class="section-title">II. KEMAMPUAN ANOMALI UTAMA</div>
+        <ul>
+            <li><strong>Pencurian Waktu Lokal (Local Time Theft):</strong> TAO-006 memanipulasi dan memakan arus waktu hidup makhluk di sekitarnya. Setiap berada dalam radius 10 meter dari entitas ini, waktu biologis target terdistorsi secara ekstrem.</li>
+            <li><strong>Penuaan Instan (Instant Biological Aging):</strong> Setiap 1 detik terpapar di dekat TAO-006, tubuh target akan mengalami penuaan fisik selama 1 tahun secara instan. Dalam waktu 10 hingga 20 detik, seorang manusia sehat akan membusuk dan hancur menjadi debu.</li>
+            <li><strong>Pemutarbalikan Waktu Mandiri (Temporal Rewind Self):</strong> Jika menerima serangan fisik atau peluru, roda gigi di wajahnya akan berputar berlawanan arah jam, mengembalikan kondisi fisik dan posisi tubuhnya (<i>time rewind</i>) ke kondisi beberapa detik sebelum serangan terjadi.</li>
+        </ul>
+
+        <div class="section-title">III. PROSEDUR PENANAHAN KHUSUS</div>
+        <p>
+            <strong>STATUS: CONTAINED (TERKURUNG).</strong>
+        </p>
+
+        <p>
+            TAO-006 dikurung di Sektor-06 dalam sel hampa udara berlapis kedap suara dan dipasangi generator medan magnetik temporal untuk memperlambat arus waktu lokal di dalam sel. Interaksi fisik langsung dilarang; pemeliharaan hanya diperbolehkan menggunakan unit robotik otomatis yang tidak memiliki sel biologis.
+        </p>
+    </main>
+
     <footer>
         DOKUMEN RAHASIA ORGANISASI TAO &copy; 2026. HANYA UNTUK PERSONEL BERIZIN LEVEL 5.
     </footer>
+
+    <!-- Script Fungsi Pindah Tab -->
+    <script>
+        function switchTab(tabId) {
+            // Sembunyikan semua konten tab
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Nonaktifkan semua tombol
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Tampilkan tab yang dipilih
+            document.getElementById(tabId).classList.add('active');
+
+            // Aktifkan tombol yang diklik
+            event.currentTarget.classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
