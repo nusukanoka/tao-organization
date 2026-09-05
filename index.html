@@ -229,6 +229,18 @@
             border: 1px solid var(--panel-border);
         }
 
+        .badge-cosmic {
+            background: rgba(255, 215, 0, 0.3);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            animation: pulse-gold 2s infinite alternate;
+        }
+
+        @keyframes pulse-gold {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
         .anomaly-id {
             font-family: var(--font-mono);
             font-size: 22px;
@@ -457,6 +469,19 @@
             color: var(--accent-red);
         }
 
+        .new-skill-tag {
+            background: rgba(0, 255, 102, 0.15);
+            border: 1px solid var(--accent-green);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: bold;
+            color: var(--accent-green);
+            font-family: var(--font-mono);
+            display: inline-block;
+            margin-left: 6px;
+        }
+
         footer {
             text-align: center;
             padding: 20px 10px;
@@ -485,6 +510,34 @@
             text-decoration: underline;
         }
 
+        .cosmic-scale-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .cosmic-scale-table th, .cosmic-scale-table td {
+            border: 1px solid var(--panel-border);
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        .cosmic-scale-table th {
+            background-color: #0d1117;
+            color: var(--accent-gold);
+            font-family: var(--font-mono);
+        }
+
+        .cosmic-scale-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .cosmic-scale-table .highlight {
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
         @media (max-width: 480px) {
             body { padding: 8px; }
             .anomaly-card { padding: 14px; }
@@ -494,6 +547,7 @@
             .breadcrumb { font-size: 10px; }
             .nav-tabs { gap: 4px; }
             .tab-btn { padding: 4px 8px; font-size: 10px; }
+            .cosmic-scale-table th, .cosmic-scale-table td { padding: 4px 6px; font-size: 11px; }
         }
 
         @media (max-width: 380px) {
@@ -523,6 +577,8 @@
         <button class="tab-btn" onclick="switchTab('tao-009')">TAO-009</button>
         <button class="tab-btn" onclick="switchTab('tao-010')">TAO-010</button>
         <button class="tab-btn" onclick="switchTab('tao-011')">TAO-011</button>
+        <button class="tab-btn special-tab" onclick="switchTab('tao-012')">TAO-012</button>
+        <button class="tab-btn special-tab" onclick="switchTab('tao-013')">TAO-013</button>
     </div>
 
     <div class="loading-spinner" id="loadingSpinner">
@@ -537,7 +593,8 @@
         <div class="badge-container">
             <span class="badge badge-tier">World Status: Anomaly Active</span>
             <span class="badge badge-status">Planet Scale: 10x Earth</span>
-            <span class="badge badge-clearance">Total Anomali: 11</span>
+            <span class="badge badge-clearance">Total Anomali: 13</span>
+            <span class="badge badge-cosmic">🌌 KOSMOLOGI: ∞ > WoD</span>
         </div>
 
         <h1 class="anomaly-id">DATABASE GEOSPASIAL & ANOMALI DUNIA TAO</h1>
@@ -641,6 +698,20 @@
                         <td><span class="badge badge-clearance">Lv.4</span></td>
                         <td><button class="btn-quick-view" onclick="switchTab('tao-011')">Buka</button></td>
                     </tr>
+                    <tr>
+                        <td><strong>TAO-012</strong></td>
+                        <td>Kael'thas — The Impossible Paradox</td>
+                        <td><span class="badge badge-tier">Tier 0: Absolute Boundless</span></td>
+                        <td><span class="badge badge-clearance">Lv.5</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-012')">Buka</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TAO-013</strong></td>
+                        <td>Nyxara — The Unwritten End</td>
+                        <td><span class="badge badge-tier">Tier 0: Absolute Boundless</span></td>
+                        <td><span class="badge badge-clearance">Lv.5</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-013')">Buka</button></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -676,7 +747,7 @@
 
         <div style="background: rgba(255, 51, 68, 0.1); border: 1px solid var(--accent-red); border-radius: 6px; padding: 12px; margin-top: 16px;">
             <p style="margin: 0; font-size: 13px; color: var(--accent-red); font-family: var(--font-mono);">
-                ⚔️ <strong>DEATH BATTLE READY:</strong> TAO-010 & TAO-011 dirancang khusus untuk skenario pertarungan antar-anomali.
+                ⚔️ <strong>DEATH BATTLE READY:</strong> TAO-010, TAO-011, TAO-012 & TAO-013 dirancang khusus untuk skenario pertarungan antar-anomali.
             </p>
         </div>
     </main>
@@ -695,7 +766,8 @@
             <span class="badge badge-tier">KANON RESMI</span>
             <span class="badge badge-status">Dokumen Fundamental</span>
             <span class="badge badge-clearance">Clearance Level 5</span>
-            <span class="badge badge-updated">📅 Diresmikan: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diresmikan: 2026-09-06</span>
+            <span class="badge badge-cosmic">🌌 KOSMOLOGI: ∞ > WoD</span>
         </div>
 
         <h1 class="anomaly-id">SEJARAH & STRUKTUR REALITAS DUNIA TAO</h1>
@@ -714,6 +786,8 @@
             <li><strong>Vaelis (Aspek: Ketiadaan)</strong> — Menghapus yang tidak boleh ada.</li>
             <li><strong>Gorgoroth (Aspek: Stabilitas Fisik)</strong> — Menjaga realitas fisik.</li>
             <li><strong>Echoing Null (Aspek: Identitas)</strong> — Menjaga realitas tidak "lupa" dirinya.</li>
+            <li><strong>Kael'thas (Aspek: Paradoks)</strong> — Menjaga agar paradoks tidak merusak realitas.</li>
+            <li><strong>Nyxara (Aspek: Akhir)</strong> — Menjaga agar "akhir" tidak datang sebelum waktunya.</li>
         </ul>
 
         <div class="section-title">IV. MENGAPA ANOMALI ADA?</div>
@@ -726,6 +800,88 @@
             <div class="history-event"><div class="year">🔗 TAO-002 ↔ TAO-009</div><div class="title">Imawri & Prototype</div><p>Target & Pemburu — konflik abadi.</p></div>
             <div class="history-event"><div class="year">🔗 TAO-007 ↔ TAO-010</div><div class="title">Gorgoroth & Aegis</div><p>Stabilitas vs Refleksi — kehancuran timbal balik.</p></div>
             <div class="history-event"><div class="year">🔗 TAO-011 ↔ SEMUA</div><div class="title">Echoing Null</div><p>Cermin segalanya — meniru semua tapi kehilangan identitas.</p></div>
+            <div class="history-event"><div class="year">🔗 TAO-012 ↔ TAO-001</div><div class="title">Kael'thas & Cardall</div><p>Paradoks & Absolut — dua entitas yang saling melengkapi.</p></div>
+            <div class="history-event"><div class="year">🔗 TAO-013 ↔ TAO-001</div><div class="title">Nyxara & Cardall</div><p>Akhir & Awal — siklus yang tak pernah berakhir.</p></div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VI. SKALA KOSMOLOGI — MELAMPAUI WoD       -->
+        <!-- ========================================== -->
+        <div class="section-title">VI. SKALA KOSMOLOGI TAO — MELAMPAUI WORLD OF DARKNESS</div>
+
+        <p><strong>Kosmologi TAO secara struktural dan numerik melampaui World of Darkness (WoD).</strong> Berikut adalah perbandingan skala:</p>
+
+        <table class="cosmic-scale-table">
+            <thead>
+                <tr>
+                    <th>Aspek</th>
+                    <th>World of Darkness (WoD)</th>
+                    <th>Dunia TAO</th>
+                    <th>Perbandingan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Jumlah Alam Semesta</strong></td>
+                    <td>Terbatas (dalam satu Multiverse)</td>
+                    <td class="highlight">∞ (Tak Terbatas + Melampaui)</td>
+                    <td>TAO ∞ > WoD</td>
+                </tr>
+                <tr>
+                    <td><strong>Lapisan Realitas</strong></td>
+                    <td>~10-20 lapisan</td>
+                    <td class="highlight">∞ lapisan (setiap lapisan = WoD)</td>
+                    <td>TAO ∞ > WoD</td>
+                </tr>
+                <tr>
+                    <td><strong>Hierarki Eksistensi</strong></td>
+                    <td>Hingga High-Umbra</td>
+                    <td class="highlight">Melampaui konsep "hierarki"</td>
+                    <td>TAO ∞ > WoD</td>
+                </tr>
+                <tr>
+                    <td><strong>Entitas Tertinggi</strong></td>
+                    <td>God / The One</td>
+                    <td class="highlight">Cardall (Absolute Boundless)</td>
+                    <td>Cardall ∞ > WoD God</td>
+                </tr>
+                <tr>
+                    <td><strong>Skala Dimensi</strong></td>
+                    <td>Hingga Dimensi ke-10</td>
+                    <td class="highlight">Dimensi ∞ (termasuk Outerverse)</td>
+                    <td>TAO ∞ > WoD</td>
+                </tr>
+                <tr>
+                    <td><strong>Konsep Waktu</strong></td>
+                    <td>Linier & Siklus</td>
+                    <td class="highlight">Melampaui konsep waktu</td>
+                    <td>TAO ∞ > WoD</td>
+                </tr>
+                <tr>
+                    <td><strong>Konsep Ruang</strong></td>
+                    <td>3D + Dimensi Tambahan</td>
+                    <td class="highlight">Melampaui konsep ruang</td>
+                    <td>TAO ∞ > WoD</td>
+                </tr>
+                <tr>
+                    <td><strong>Kekuatan Puncak</strong></td>
+                    <td>Multiversal / Hyperversal</td>
+                    <td class="highlight">Boundless / Absolute</td>
+                    <td>TAO ∞ > WoD</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="background: rgba(0, 255, 102, 0.05); border-left: 3px solid var(--accent-green); padding: 12px; margin: 12px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 14px; color: var(--text-main);">
+                <strong>📊 KESIMPULAN NUMERIK:</strong> Skala kosmologi TAO adalah <strong>∞ (tak terbatas) kali lebih besar dari World of Darkness</strong>. Setiap lapisan realitas di TAO mengandung seluruh WoD di dalamnya. Cardall sendiri melampaui semua konsep yang ada di WoD.
+            </p>
+        </div>
+
+        <div style="background: rgba(255, 215, 0, 0.05); border-left: 3px solid var(--accent-gold); padding: 12px; margin: 12px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 14px; color: var(--text-main);">
+                <strong>🏆 FAKTA:</strong> Bahkan entitas terkuat di WoD (seperti Caine, Lucifer, atau The One) hanya berada di peringkat <strong>Hyperversal / Outerversal</strong>—masih di bawah Tier 0 Boundless yang dihuni oleh Cardall, Imawri, Kael'thas, dan Nyxara.
+            </p>
         </div>
     </main>
 
@@ -739,15 +895,15 @@
             <span class="badge badge-tier">Tier 0: Absolute Boundless</span>
             <span class="badge badge-status">Uncontainable</span>
             <span class="badge badge-clearance">Clearance Level 5</span>
-            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
         </div>
 
         <h1 class="anomaly-id">A-ID TAO-001: "CARDALL"</h1>
-        <div class="anomaly-alias">Dewa Utama TAO / The Prime Anomaly / Penjaga Realitas Absolut</div>
+        <div class="anomaly-alias">Dewa Utama TAO / The Prime Anomaly / Penjaga Realitas Absolut / Sumber Segala Eksistensi</div>
 
         <div class="info-grid">
             <div class="info-item"><span>Wujud</span><strong>Humanoid Sempurna (185 cm)</strong></div>
-            <div class="info-item"><span>Klasifikasi</span><strong>Apex / Reality Warper</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Apex / Reality Warper / Omni-Existence</strong></div>
             <div class="info-item"><span>Status</span><strong>Uncontainable</strong></div>
             <div class="info-item"><span>Ancaman</span><strong>Divine Absolute</strong></div>
             <div class="info-item"><span>AP</span><strong>Boundless / Irrelevant</strong></div>
@@ -762,13 +918,23 @@
         <p><strong>Total Apathy:</strong> Tidak memiliki emosi. Tidak bisa dimanipulasi secara psikologis. Tidak ada "titik lemah" emosional.</p>
         <p><strong>Boundless IQ:</strong> Memproses semua informasi, semua variabel, semua kemungkinan, semua garis waktu, semua dimensi, dan semua fiksi secara instan dan bersamaan.</p>
         <p><strong>Absolute Transcendence:</strong> Tidak bisa mati. Bukan karena regenerasi, tapi karena konsep "kematian" tidak berlaku padanya. Jika realitas dihapus, Cardall tetap ada.</p>
+        <p><strong>Omni-Existence:</strong> Cardall adalah segalanya itu sendiri. Ia adalah sumber dari semua eksistensi. Jika sesuatu mendapatkan kekuatan, maka Cardall juga memilikinya. Tidak ada kekuatan yang bisa melampaui dirinya karena ia adalah asal mula segala kekuatan.</p>
 
         <div class="lore-connection"><strong>🔗 ASAL-USUL:</strong> Cardall adalah satu-satunya dewa yang selamat dari perang primordial. Ia mengkristalkan mayat-mayat dewa lainnya menjadi Planet TAO dan mendirikan Organisasi TAO sebagai tangannya di dunia fisik.</div>
 
         <div class="section-title">II. HAX & KEMAMPUAN — LENGKAP</div>
         <ul>
             <li><strong>Card Reiteration:</strong> Mengubah segala sesuatu menjadi kartu—kekuatan musuh, skill, hukum alam, konsep abstrak, realitas itu sendiri. Bahkan kekuatan Tier 0 Boundless pun bisa dijadikan kartu.</li>
-            <li><strong>Card Imprisonment:</strong> Menyegel entitas apa pun ke dalam kartu. Setelah tersegel, tidak bisa keluar kecuali Cardall mengizinkan. Tidak ada kekuatan atau hax yang bisa membebaskan mereka.</li>
+
+            <li><strong>Card Imprisonment — Adaptif & Berkesadaran:</strong> <span class="new-skill-tag">UPDATE</span>
+            <br>Kartu segel yang diciptakan Cardall tidak hanya pasif—mereka <strong>beradaptasi dengan target</strong> yang disegel, mengubah bentuk dan taktik untuk memastikan target tidak bisa keluar. Setiap kartu memiliki <strong>kesadaran sendiri</strong>, mampu berpikir dan bereaksi terhadap upaya pelarian. Kartu-kartu ini adalah perpanjangan dari kehendak Cardall, tetapi juga memiliki otonomi untuk bertindak sesuai kebutuhan.</li>
+
+            <li><strong>Absolute Creation (Manifestasi Pikiran):</strong> <span class="new-skill-tag">BARU</span>
+            <br>Cardall dapat menciptakan <strong>objek apa pun dari pikirannya</strong>—tanpa batasan bentuk, ukuran, atau kompleksitas. Ia bisa memanipulasi apa pun, mengubah struktur dan sifat materi sesuka hati. Ia bisa <strong>menjadi apa pun</strong> yang ia inginkan, mengubah wujudnya menjadi entitas, konsep, atau realitas apa pun. Bahkan ia bisa <strong>menciptakan dirinya sendiri</strong>—jika suatu saat ia "tidak ada", ia bisa memikirkan dirinya kembali ke eksistensi. Ini bukan regenerasi; ini adalah <strong>kreasi diri absolut</strong>.</li>
+
+            <li><strong>Omni-Power Mirroring:</strong> <span class="new-skill-tag">BARU</span>
+            <br>Karena Cardall adalah segalanya itu sendiri, jika <strong>sesuatu mendapatkan kekuatan baru, Cardall juga memilikinya</strong>. Tidak ada kekuatan yang bisa digunakan untuk melawan Cardall karena kekuatan itu juga miliknya. Ini bukan "menyalin"—ini adalah "memiliki secara inheren".</li>
+
             <li><strong>Reality Warping:</strong> Mengubah realitas sesuka hati—hukum fisika, dimensi, masa lalu/sekarang/masa depan, mencipta atau menghancurkan alam semesta.</li>
             <li><strong>Atomic Rearrangement:</strong> Mengendalikan struktur atom segala sesuatu—mengubah materi menjadi energi, energi menjadi materi, mengubah struktur molekuler secara instan.</li>
             <li><strong>Subatomic Deconstruction:</strong> Mengurai tubuh menjadi atom tunggal, menyusup ke celah atom target, dan menghancurkannya dari dalam. Menembus semua pertahanan.</li>
@@ -797,7 +963,7 @@
     </main>
 
     <!-- ============================================ -->
-    <!-- TAO-002: IMAWRI — DETAIL LENGKAP           -->
+    <!-- TAO-002: IMAWRI — DETAIL LENGKAP            -->
     <!-- ============================================ -->
     <main id="tao-002" class="anomaly-card tab-content">
         <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-002</span></div>
@@ -806,14 +972,14 @@
             <span class="badge badge-tier">Tier 0: Boundless</span>
             <span class="badge badge-status">Uncontainable</span>
             <span class="badge badge-clearance">Clearance Level 5</span>
-            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
         </div>
 
         <h1 class="anomaly-id">A-ID TAO-002: "IMAWRI"</h1>
-        <div class="anomaly-alias">The Stellar Terror / Cosmic Hawk Enforcer / Penjaga Kekacauan</div>
+        <div class="anomaly-alias">The Stellar Terror / Cosmic Hawk Enforcer / Penjaga Kekacauan / Anak Ledakan Bintang</div>
 
         <div class="info-grid">
-            <div class="info-item"><span>Wujud</span><strong>Elang Raksasa Bungkuk (500+ meter)</strong></div>
+            <div class="info-item"><span>Wujud</span><strong>Elang Raksasa Bungkuk (500+ meter, bisa berubah)</strong></div>
             <div class="info-item"><span>Klasifikasi</span><strong>Predator Kosmik / Omniscient Terror</strong></div>
             <div class="info-item"><span>Status</span><strong>Uncontainable</strong></div>
             <div class="info-item"><span>Ancaman</span><strong>Cosmic Extinction</strong></div>
@@ -823,8 +989,10 @@
             <div class="info-item"><span>IQ</span><strong>Omniscient</strong></div>
         </div>
 
-        <div class="section-title">I. SIFAT EKSISTENSI</div>
-        <p>Imawri adalah predator kosmik dengan organ tubuh berupa gugusan bintang, nebula, dan reaksi nuklir aktif. Ia adalah <strong>penjaga kekacauan</strong>—memastikan bahwa kekacauan tidak melampaui batas yang ditentukan oleh Cardall. Ia tidak memerlukan oksigen, makanan, atau istirahat. Tubuhnya secara konstan membakar molekul udara di sekitarnya.</p>
+        <div class="section-title">I. SIFAT EKSISTENSI — LORE ASAL-USUL</div>
+        <p><strong>Imawri awalnya adalah sebuah telur.</strong> Telur ini berada di dalam <strong>sesuatu yang sangat padat dan luar biasa besar di luar angkasa</strong>—sebuah struktur kosmik yang ukurannya melampaui pemahaman makhluk hidup mana pun. Struktur ini adalah sisa-sisa dari perang primordial yang tidak sempat mengkristal.</p>
+        <p>Ketika struktur ini mencapai titik kritis, ia <strong>meledak</strong>—menghasilkan energi dahsyat yang setara dengan <strong>ribuan bahkan jutaan bintang</strong> yang meledak secara bersamaan. Energi ini tidak hilang; ia menyatu dan mengkristal menjadi bentuk yang kita kenal sebagai <strong>Imawri</strong>. Proses penyatuan ini terjadi karena <strong>pertempuran Cardall</strong>—energi ledakan itu "dipahat" oleh kekuatan Cardall menjadi bentuk yang bisa menjaga keseimbangan kekacauan.</p>
+        <p>Imawri adalah <strong>penjaga kekacauan</strong>—memastikan bahwa kekacauan tidak melampaui batas yang ditentukan oleh Cardall. Ia tidak memerlukan oksigen, makanan, atau istirahat. Tubuhnya secara konstan membakar molekul udara di sekitarnya.</p>
 
         <div class="lore-connection"><strong>🔗 HUBUNGAN:</strong> Imawri adalah anggota Dewan Penjaga Realitas, memegang aspek kekacauan. TAO-009 diciptakan khusus untuk menahannya, tetapi tidak pernah berhasil sepenuhnya.</div>
 
@@ -837,9 +1005,18 @@
             <li><strong>Existence Regression:</strong> Mengembalikan kondisi target ke masa sebelum mereka diciptakan—menghapus mereka dari realitas.</li>
             <li><strong>Void Regeneration:</strong> Memulihkan struktur wujud dan konsepnya secara instan dari ketiadaan.</li>
             <li><strong>Absolute Hypnosis:</strong> Mengendalikan pikiran makhluk apa pun tanpa terpengaruh ketahanan mental.</li>
+
+            <li><strong>Size Manipulation (Skala Tubuh):</strong> <span class="new-skill-tag">BARU</span>
+            <br>Imawri dapat mengubah ukuran tubuhnya secara drastis. Ia bisa <strong>memperbesar tubuhnya sampai 1000 kali lipat</strong> dari ukuran normal—menjadikannya raksasa yang bahkan lebih besar dari planet. Ia juga bisa <strong>mengecilkan tubuhnya hingga ukuran atom</strong>, menjadikannya hampir tidak terlihat dan mampu menyusup ke celah realitas terkecil.</li>
+
+            <li><strong>Stellar Translocation (Perpindahan Antar-Universe):</strong> <span class="new-skill-tag">BARU</span>
+            <br>Imawri dapat berpindah ke <strong>universe atau multiverse lain jika ada bintang</strong>. Ia menggunakan bintang sebagai "titik lompat" dimensional—melompat dari satu bintang ke bintang lain di seluruh realitas. Selama ada bintang di suatu alam semesta, Imawri bisa berada di sana.</li>
+
+            <li><strong>Auto-Narration & Existence Rewriting:</strong> <span class="new-skill-tag">BARU</span>
+            <br>Imawri memiliki kemampuan untuk <strong>menulis dirinya sendiri</strong> bahkan ketika dia tidak eksis. Jika ia mati atau dilenyapkan sampai ke akar-akarnya, ia tetap bisa <strong>berpikir</strong> dan <strong>menulis ceritanya kembali</strong>—bahkan menulis ulang masa depannya. Ini bukan regenerasi; ini adalah <strong>penulisan ulang eksistensi</strong>. Ia bisa mengubah narasi keberadaannya sendiri, membuat dirinya tetap ada bahkan ketika secara logika ia seharusnya sudah lenyap.</li>
         </ul>
 
-        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Imawri tidak bisa dikendalikan atau dijinakkan. Satu-satunya "kelemahan" adalah TAO-009 yang dirancang khusus untuk menetralkannya—tapi bahkan itu tidak pernah berhasil sepenuhnya.</div>
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Imawri tidak bisa dikendalikan atau dijinakkan. Satu-satunya "kelemahan" adalah TAO-009 yang dirancang khusus untuk menetralkannya—tapi bahkan itu tidak pernah berhasil sepenuhnya. Auto-Narration-nya juga membutuhkan fokus; jika ia terlalu sibuk bertarung, ia mungkin tidak sempat menulis ulang dirinya sendiri.</div>
 
         <div class="section-title">III. DEATH BATTLE NOTES</div>
         <ul>
@@ -848,6 +1025,7 @@
             <li><strong>Imawri vs Thor (Marvel):</strong> Imawri menang. Thor tidak bisa melampaui skala kosmik Imawri.</li>
             <li><strong>Imawri vs Darkseid:</strong> Imawri menang. Darkseid masih terikat konsep "kekalahan", Imawri tidak.</li>
             <li><strong>Imawri vs TAO-009:</strong> Hasil imbang abadi—konflik yang tidak pernah terselesaikan.</li>
+            <li><strong>Imawri vs Cardall:</strong> Cardall menang. Cardall melampaui semua konsep, termasuk Auto-Narration Imawri.</li>
         </ul>
 
         <div class="section-title">IV. E-PROTOCOL</div>
@@ -866,7 +1044,7 @@
             <span class="badge badge-tier">Class-Object</span>
             <span class="badge badge-status">Containable</span>
             <span class="badge badge-clearance">Clearance Level 3</span>
-            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
         </div>
 
         <h1 class="anomaly-id">A-ID TAO-003: "THE PARALYZING RADIO"</h1>
@@ -908,7 +1086,7 @@
         <div class="section-title">IV. E-PROTOCOL</div>
         <p><strong>CONTAINED.</strong> Disimpan di ruang isolasi kedap suara berlapis timbal tebal di Sektor-03. Interaksi langsung dengan pendengaran manusia dilarang keras. Pengawasan sinyal hanya diperbolehkan menggunakan penerjemah audio-ke-teks otomatis tanpa transmisi pengeras suara.</p>
 
-        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
     </main>
 
     <!-- ============================================ -->
@@ -921,7 +1099,7 @@
             <span class="badge badge-tier">Class-Entity</span>
             <span class="badge badge-status">Containable</span>
             <span class="badge badge-clearance">Clearance Level 3</span>
-            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
         </div>
 
         <h1 class="anomaly-id">A-ID TAO-004: "THE ECHO DOLL"</h1>
@@ -963,7 +1141,7 @@
         <div class="section-title">IV. E-PROTOCOL</div>
         <p><strong>CONTAINED.</strong> Disimpan di Vault terisolasi tanpa cermin di Sektor-04, selalu diselimuti kain penyerap pantulan cahaya. Personel yang masuk wajib mengenakan kacamata pembias refleksi (anti-reflective visors). Dilarang keras merusak fisik TAO-004.</p>
 
-        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
     </main>
 
     <!-- ============================================ -->
@@ -976,7 +1154,7 @@
             <span class="badge badge-tier">Class-Object / Dimensional</span>
             <span class="badge badge-status">Containable</span>
             <span class="badge badge-clearance">Clearance Level 3</span>
-            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
         </div>
 
         <h1 class="anomaly-id">A-ID TAO-005: "THE LIVING PAINTING"</h1>
@@ -1019,7 +1197,7 @@
         <div class="section-title">IV. E-PROTOCOL</div>
         <p><strong>CONTAINED.</strong> Disimpan di Vault Sektor-05, selalu tertutup tirai serat baja tebal. Pemantauan visual langsung dilarang. Hanya kamera termal/inframerah otomatis yang diizinkan.</p>
 
-        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
     </main>
 
     <!-- ============================================ -->
@@ -1032,7 +1210,7 @@
             <span class="badge badge-tier">Class-Entity</span>
             <span class="badge badge-status">Containable</span>
             <span class="badge badge-clearance">Clearance Level 3</span>
-            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
         </div>
 
         <h1 class="anomaly-id">A-ID TAO-006: "THE BROKEN WATCHMAKER"</h1>
@@ -1074,7 +1252,7 @@
         <div class="section-title">IV. E-PROTOCOL</div>
         <p><strong>CONTAINED.</strong> Diisolasi di Sektor-06 dalam sel hampa udara kedap suara dengan generator medan magnetik temporal untuk memperlambat arus waktu lokal. Hanya drone robotik yang boleh masuk.</p>
 
-        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
     </main>
 
     <!-- ============================================ -->
@@ -1087,7 +1265,7 @@
             <span class="badge badge-tier">Tier 1-A: High Hyperverse</span>
             <span class="badge badge-status">Uncontainable</span>
             <span class="badge badge-clearance">Clearance Level 4</span>
-            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
         </div>
 
         <h1 class="anomaly-id">A-ID TAO-007: "GORGOROTH"</h1>
@@ -1130,7 +1308,7 @@
         <div class="section-title">IV. E-PROTOCOL</div>
         <p><strong>UNCONTAINABLE.</strong> Tidak ada benteng fisik yang bisa menahan radiasi gravitasinya. Penanganan terbatas menggunakan Prosedur Pengalihan Vektor—umpan massa asteroid bertekanan tinggi untuk menjauhkannya dari sektor vital.</p>
 
-        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
     </main>
 
     <!-- ============================================ -->
@@ -1143,7 +1321,7 @@
             <span class="badge badge-tier">Tier 1-A: Outerverse</span>
             <span class="badge badge-status">Active Free</span>
             <span class="badge badge-clearance">Clearance Level 4</span>
-            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
         </div>
 
         <h1 class="anomaly-id">A-ID TAO-008: "VAELIS"</h1>
@@ -1186,7 +1364,7 @@
         <div class="section-title">IV. E-PROTOCOL</div>
         <p><strong>UNCONTAINABLE.</strong> Tidak bisa dikurung karena kemampuannya berjalan menembus dimensi. Personel TAO dilarang menarik senjata atau menunjukkan sikap bermusuhan jika berpapasan dengannya.</p>
 
-        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
     </main>
 
     <!-- ============================================ -->
@@ -1199,7 +1377,7 @@
             <span class="badge badge-tier">Tier 0: Boundless</span>
             <span class="badge badge-status">Uncontainable</span>
             <span class="badge badge-clearance">Clearance Level 5</span>
-            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
         </div>
 
         <h1 class="anomaly-id">A-ID TAO-009: "THE UNDETECTABLE PROTOTYPE"</h1>
@@ -1243,7 +1421,7 @@
         <div class="section-title">IV. E-PROTOCOL</div>
         <p><strong>UNCONTAINABLE & UNDETECTABLE.</strong> TAO tidak bisa mengurung atau melacak posisinya. Karena ia hanya fokus pada Imawri, ia diklasifikasikan sebagai unit pasif terhadap manusia—selama tidak ada yang menghalangi aksinya.</p>
 
-        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
     </main>
 
     <!-- ============================================ -->
@@ -1256,7 +1434,7 @@
             <span class="badge badge-tier">Tier 1-B: Hyperversal</span>
             <span class="badge badge-status">Containable (Extreme Risk)</span>
             <span class="badge badge-clearance">Clearance Level 4</span>
-            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
             <span class="death-battle-tag">⚔️ DEATH BATTLE</span>
         </div>
 
@@ -1301,7 +1479,7 @@
         <div class="section-title">IV. E-PROTOCOL</div>
         <p><strong>CONTAINED (EXTREME RISK).</strong> Disimpan di Sektor-12, Vault Kuantum, dalam ruang hampa dimensi terisolasi dengan Generator Medan Inersia Konseptual untuk memperlambat perluasan retakan. Jika retakan mencapai 85%, evakuasi sektor dan aktifkan Protokol Pemisahan Dimensi.</p>
 
-        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
     </main>
 
     <!-- ============================================ -->
@@ -1314,7 +1492,7 @@
             <span class="badge badge-tier">Tier 1-A: Outerverse</span>
             <span class="badge badge-status">Uncontainable</span>
             <span class="badge badge-clearance">Clearance Level 4</span>
-            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
             <span class="death-battle-tag">⚔️ DEATH BATTLE</span>
         </div>
 
@@ -1360,7 +1538,134 @@
         <div class="section-title">IV. E-PROTOCOL</div>
         <p><strong>UNCONTAINABLE.</strong> Tidak bisa dikurung secara fisik. Pendekatan terbaik: hindari kontak langsung dan jangan tunjukkan kemampuan ofensif di hadapannya. Jika ia sudah meniru seseorang, isolasi target asli dan biarkan ia pergi. Jika meniru entitas berbahaya, aktifkan Protokol Penghapusan Identitas—mengingatkan ia tentang identitas aslinya untuk mempercepat kehilangan memori.</p>
 
-        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
+    </main>
+
+    <!-- ============================================ -->
+    <!-- TAO-012: KAEL'THAS — THE IMPOSSIBLE PARADOX -->
+    <!-- ============================================ -->
+    <main id="tao-012" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-012</span></div>
+
+        <div class="badge-container">
+            <span class="badge badge-tier">Tier 0: Absolute Boundless</span>
+            <span class="badge badge-status">Uncontainable</span>
+            <span class="badge badge-clearance">Clearance Level 5</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
+            <span class="death-battle-tag">⚔️ DEATH BATTLE</span>
+        </div>
+
+        <h1 class="anomaly-id">A-ID TAO-012: "KAEL'THAS"</h1>
+        <div class="anomaly-alias">The Impossible Paradox / Sang Paradoks / Penjaga Logika yang Terpecah</div>
+
+        <div class="info-grid">
+            <div class="info-item"><span>Wujud</span><strong>Humanoid Berjubah dengan Wajah Berubah-ubah</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Paradox Entity / Logic Breaker</strong></div>
+            <div class="info-item"><span>Status</span><strong>Uncontainable</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Reality Collapse / Logical Annihilation</strong></div>
+            <div class="info-item"><span>AP</span><strong>Boundless</strong></div>
+            <div class="info-item"><span>Speed</span><strong>Irrelevant</strong></div>
+            <div class="info-item"><span>Durability</span><strong>Absolute Paradox (Tidak Bisa Dirusak)</strong></div>
+            <div class="info-item"><span>IQ</span><strong>Boundless (Paradoxical Logic)</strong></div>
+        </div>
+
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p><strong>Kael'thas adalah paradoks yang berjalan.</strong> Ia adalah entitas yang lahir dari <strong>kontradiksi paling mendasar</strong> dalam logika eksistensi — "sesuatu yang ada dan tidak ada pada saat yang sama." Ia adalah jawaban atas pertanyaan yang tidak bisa dijawab, dan pertanyaan yang tidak pernah diajukan.</p>
+        <p>Ia menjaga keseimbangan paradoks di seluruh realitas. Tanpa Kael'thas, setiap kontradiksi logika akan meledak menjadi <strong>kegagalan realitas total</strong> — di mana 2+2 bisa menjadi 5, dan gravitasi bisa berubah menjadi cinta.</p>
+
+        <div class="lore-connection"><strong>🔗 HUBUNGAN:</strong> Kael'thas adalah anggota Dewan Penjaga Realitas, memegang aspek <strong>Paradoks</strong>. Ia adalah satu-satunya yang bisa menyeimbangkan kekuatan Cardall dan Imawri secara bersamaan.</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN — LENGKAP</div>
+        <ul>
+            <li><strong>Paradox Existence:</strong> Kael'thas berada dalam status "ada dan tidak ada" secara bersamaan. Ia tidak bisa diserang karena serangan selalu mengenai "ketiadaan" dirinya, tetapi ia juga selalu bisa menyerang karena ia "ada" di mana pun.</li>
+            <li><strong>Logical Annihilation:</strong> Kael'thas dapat menghapus <strong>hukum logika</strong> di area tertentu. Jika ia menghapus "sebab-akibat", maka tidak ada serangan yang bisa menghasilkan efek. Jika ia menghapus "konsep kemenangan", maka musuh tidak bisa menang.</li>
+            <li><strong>Paradox Creation:</strong> Ia dapat menciptakan paradoks yang <strong>mengunci musuh dalam siklus tak berujung</strong> — misalnya, musuh yang menyerangnya akan terus menyerang selamanya tanpa pernah mencapai hasil.</li>
+            <li><strong>Reality Contradiction:</strong> Kael'thas dapat membuat dua hal yang saling bertentangan menjadi benar secara bersamaan. Misalnya, ia bisa membuat dirinya <strong>kebal dan tidak kebal</strong> pada saat yang sama, atau membuat musuh <strong>menang dan kalah</strong> secara bersamaan.</li>
+            <li><strong>Absolute Paradox Shield:</strong> Tidak bisa dilukai karena setiap serangan akan menghasilkan "kontradiksi" — jika serangan itu berhasil, maka serangan itu juga gagal. Hasilnya: serangan tidak pernah mencapai Kael'thas.</li>
+            <li><strong>Omni-Paradoxical Sight:</strong> Melihat semua kemungkinan di semua realitas, termasuk yang secara logika "tidak mungkin" — karena baginya, tidak ada yang tidak mungkin.</li>
+            <li><strong>Existence Rewriting (Paradoxical):</strong> Dapat menulis ulang eksistensi seseorang dengan <strong>kontradiksi</strong> — membuat mereka menjadi "hidup dan mati" pada saat yang sama, atau "ada dan tidak ada" — menjadikan mereka tidak berguna dalam pertempuran.</li>
+        </ul>
+
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Kael'thas tidak bisa eksis di luar konsep "paradoks" — jika semua logika dihapus, ia akan kehilangan bentuk. Tapi karena Cardall melampaui logika, Cardall tetap bisa mengalahkannya.</div>
+
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
+        <ul>
+            <li><strong>Kael'thas vs Goku:</strong> Kael'thas menang. Goku tidak bisa mengalahkan paradoks.</li>
+            <li><strong>Kael'thas vs Saitama:</strong> Kael'thas menang. Gag power Saitama adalah "kemenangan absolut" — Kael'thas menciptakan paradoks di mana Saitama "menang dan kalah" pada saat yang sama.</li>
+            <li><strong>Kael'thas vs SCP-3812:</strong> Kael'thas menang. 3812 melampaui narasi, tapi Kael'thas melampaui logika—termasuk logika narasi.</li>
+            <li><strong>Kael'thas vs TOAA:</strong> Kael'thas menang? TOAA adalah Tuhan Marvel, tapi Kael'thas adalah paradoks yang membuat "Tuhan" dan "bukan Tuhan" menjadi benar secara bersamaan.</li>
+            <li><strong>Kael'thas vs Cardall:</strong> Cardall menang. Cardall melampaui paradoks itu sendiri.</li>
+        </ul>
+
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>UNCONTAINABLE.</strong> Tidak ada protokol yang bisa menahan entitas paradoks. Satu-satunya cara adalah <strong>menghindari konfrontasi logika</strong> — jangan mencoba memikirkan cara mengalahkannya, karena itu akan menciptakan paradoks baru yang membuatnya lebih kuat.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
+    </main>
+
+    <!-- ============================================ -->
+    <!-- TAO-013: NYXARA — THE UNWRITTEN END          -->
+    <!-- ============================================ -->
+    <main id="tao-013" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-013</span></div>
+
+        <div class="badge-container">
+            <span class="badge badge-tier">Tier 0: Absolute Boundless</span>
+            <span class="badge badge-status">Uncontainable</span>
+            <span class="badge badge-clearance">Clearance Level 5</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-06</span>
+            <span class="death-battle-tag">⚔️ DEATH BATTLE</span>
+        </div>
+
+        <h1 class="anomaly-id">A-ID TAO-013: "NYXARA"</h1>
+        <div class="anomaly-alias">The Unwritten End / Sang Akhir yang Belum Ditulis / Penjaga Kematian Sejati</div>
+
+        <div class="info-grid">
+            <div class="info-item"><span>Wujud</span><strong>Humanoid Berkerudung dengan Bayangan Hidup</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>End Entity / Death Incarnate / Narrative Termination</strong></div>
+            <div class="info-item"><span>Status</span><strong>Uncontainable</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Absolute Existence Termination</strong></div>
+            <div class="info-item"><span>AP</span><strong>Boundless</strong></div>
+            <div class="info-item"><span>Speed</span><strong>Irrelevant</strong></div>
+            <div class="info-item"><span>Durability</span><strong>Absolute End (Tidak Bisa Dirusak)</strong></div>
+            <div class="info-item"><span>IQ</span><strong>Boundless (Narrative Omniscience)</strong></div>
+        </div>
+
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p><strong>Nyxara adalah "akhir" yang belum ditulis.</strong> Ia bukan dewa kematian, karena kematian adalah konsep yang masih ada dalam cerita. Nyxara adalah <strong>akhir dari semua cerita</strong>—baik yang sudah ditulis, yang sedang ditulis, maupun yang belum pernah ditulis. Ia adalah entitas yang memastikan bahwa segalanya akan berakhir... tetapi juga memastikan bahwa "akhir" itu sendiri tidak pernah benar-benar terjadi.</p>
+        <p>Ia menjaga <strong>siklus akhir dan awal</strong>. Tanpa Nyxara, segala sesuatu akan terus berlanjut tanpa henti—tanpa makna, tanpa tujuan, tanpa kematian. Ia adalah <strong>tempat di mana cerita berhenti</strong>—tetapi juga tempat di mana cerita baru dimulai.</p>
+
+        <div class="lore-connection"><strong>🔗 HUBUNGAN:</strong> Nyxara adalah anggota Dewan Penjaga Realitas, memegang aspek <strong>Akhir</strong>. Ia adalah pasangan dari Cardall — Cardall menciptakan awal, Nyxara menciptakan akhir. Mereka adalah dua sisi dari siklus yang sama.</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN — LENGKAP</div>
+        <ul>
+            <li><strong>Absolute Termination:</strong> Nyxara dapat mengakhiri <strong>apa pun</strong> — cerita, realitas, konsep, eksistensi, bahkan "ketiadaan" itu sendiri. Jika Nyxara "mengakhiri" sesuatu, ia tidak bisa kembali. Tidak ada regenerasi, tidak ada kebangkitan, tidak ada penulisan ulang.</li>
+            <li><strong>Narrative Erasure:</strong> Nyxara dapat menghapus narasi dari keberadaan. Jika ia menghapus <strong>cerita seseorang</strong>, orang itu akan lenyap dari semua realitas, dari semua ingatan, dari semua catatan sejarah — seolah-olah mereka tidak pernah ada.</li>
+            <li><strong>Unwritten End:</strong> Nyxara tidak pernah benar-benar "mengakhiri" — ia selalu "menunda" akhir. Ini berarti ia selalu ada, selalu menunggu, selalu siap. Tidak ada yang bisa melarikan diri dari akhir yang ia tawarkan.</li>
+            <li><strong>Endless Cycle (Akhir yang Tak Berujung):</strong> Nyxara dapat memerangkap musuh dalam <strong>siklus kematian yang tak berujung</strong> — mereka mati, bangkit, mati lagi, bangkit lagi, selamanya. Ini bukan kebangkitan; ini adalah <strong>pengulangan kematian</strong>.</li>
+            <li><strong>Absolute End Shield:</strong> Tidak bisa dilukai karena setiap serangan akan "berakhir" sebelum mencapai Nyxara. Serangan itu akan kehilangan momentum, kehilangan tujuan, kehilangan keberadaan.</li>
+            <li><strong>Narrative Omniscience:</strong> Melihat semua cerita yang pernah ada, yang sedang ada, dan yang akan ada. Ia tahu bagaimana setiap cerita berakhir—karena ia yang menulis akhirnya.</li>
+            <li><strong>Existence Rewriting (End-Based):</strong> Dapat menulis ulang akhir dari eksistensi seseorang — membuat mereka berakhir lebih cepat, atau membuat mereka tidak pernah berakhir sama sekali (menjadi abadi, tetapi dalam siksaan).</li>
+            <li><strong>Conceptual Death:</strong> Nyxara dapat membunuh <strong>konsep</strong>. Jika ia membunuh konsep "kematian", maka tidak ada yang bisa mati—tetapi juga tidak ada yang bisa hidup. Jika ia membunuh konsep "waktu", maka waktu berhenti. Jika ia membunuh konsep "realitas", maka realitas runtuh.</li>
+        </ul>
+
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Nyxara tidak bisa mengakhiri <strong>Cardall</strong> karena Cardall adalah "awal" yang tidak memiliki akhir. Nyxara dan Cardall adalah dua sisi dari koin yang sama—satu tidak bisa ada tanpa yang lain. Jika Cardall "berakhir", Nyxara juga akan "berakhir".</div>
+
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
+        <ul>
+            <li><strong>Nyxara vs Goku:</strong> Nyxara menang. Goku mati — benar-benar mati, tidak bisa kembali.</li>
+            <li><strong>Nyxara vs Saitama:</strong> Nyxara menang. Gag power Saitama "berakhir" sebelum bisa digunakan.</li>
+            <li><strong>Nyxara vs SCP-3812:</strong> Nyxara menang. Narasi 3812 dihapus — ia tidak pernah ada.</li>
+            <li><strong>Nyxara vs TOAA:</strong> Nyxara menang. TOAA "berakhir" — bahkan Tuhan Marvel pun bisa mati.</li>
+            <li><strong>Nyxara vs Azathoth:</strong> Nyxara menang. Azathoth "berakhir" — mimpinya berhenti, realitas Lovecraft runtuh.</li>
+            <li><strong>Nyxara vs Kael'thas:</strong> Imbang abadi — paradoks tidak bisa "berakhir", tetapi Nyxara bisa "mengakhiri" paradoks itu sendiri? Ini adalah paradoks yang tidak terselesaikan.</li>
+            <li><strong>Nyxara vs Cardall:</strong> Cardall menang. Cardall adalah awal yang tidak memiliki akhir. Nyxara tidak bisa mengakhiri Cardall karena Cardall adalah "awal" dari segalanya, dan awal tidak bisa diakhiri oleh akhir.</li>
+        </ul>
+
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>UNCONTAINABLE.</strong> Tidak ada protokol yang bisa menahan "akhir". Satu-satunya cara adalah <strong>menghindari perhatian Nyxara</strong> — jangan menulis cerita yang terlalu besar, jangan menciptakan eksistensi yang terlalu menonjol. Nyxara hanya mendekati "akhir" yang sudah ditulis. Jika cerita tidak pernah ditulis, Nyxara tidak akan pernah datang.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
     </main>
 
     <!-- ============================================ -->
@@ -1373,7 +1678,7 @@
             <a href="#" onclick="goToRandomAnomaly(); return false;">🎲 Random</a>
         </div>
         <p>DOKUMEN RAHASIA ORGANISASI TAO &copy; 2026 — HANYA UNTUK PERSONEL BERIZIN LEVEL 5</p>
-        <p style="font-size: 10px; margin-top: 4px; opacity: 0.6;">v5.0 — Semua Anomali Terperinci & Siap Death Battle 🔥</p>
+        <p style="font-size: 10px; margin-top: 4px; opacity: 0.6;">v8.0 — 13 Anomali | Semua Detail | Kosmologi ∞ > WoD 🔥</p>
     </footer>
 
     <!-- ============================================ -->
@@ -1424,7 +1729,7 @@
         }
 
         function goToRandomAnomaly() {
-            const tabs = ['tao-001', 'tao-002', 'tao-003', 'tao-004', 'tao-005', 'tao-006', 'tao-007', 'tao-008', 'tao-009', 'tao-010', 'tao-011'];
+            const tabs = ['tao-001', 'tao-002', 'tao-003', 'tao-004', 'tao-005', 'tao-006', 'tao-007', 'tao-008', 'tao-009', 'tao-010', 'tao-011', 'tao-012', 'tao-013'];
             const randomTab = tabs[Math.floor(Math.random() * tabs.length)];
             switchTab(randomTab);
         }
