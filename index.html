@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TAO - The Anomaly Organization</title>
     <style>
-        /* CSS Reset & Ringan untuk Performa HP Maksimal */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -38,7 +37,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Header Layout */
         header {
             background: var(--panel-bg);
             border: 1px solid var(--panel-border);
@@ -71,26 +69,32 @@
             letter-spacing: 0.5px;
         }
 
-        /* Nav Tab */
         .nav-tabs {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             margin-bottom: 16px;
             overflow-x: auto;
             padding-bottom: 4px;
+            scroll-behavior: smooth;
         }
 
         .tab-btn {
             background: var(--panel-bg);
             border: 1px solid var(--panel-border);
             color: var(--text-muted);
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 6px;
             font-family: var(--font-mono);
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
             white-space: nowrap;
-            transition: background 0.2s, color 0.2s;
+            transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .tab-btn:hover {
+            background: #1a2332;
+            transform: scale(1.02);
         }
 
         .tab-btn.active {
@@ -109,16 +113,74 @@
             background: rgba(255, 215, 0, 0.15);
         }
 
-        /* Tab Content Control */
         .tab-content {
             display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.3s ease;
+            transform: translateY(8px);
         }
 
         .tab-content.active {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Anomaly Profile Card */
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: var(--accent-green);
+            font-family: var(--font-mono);
+        }
+
+        .loading-spinner.active {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--panel-border);
+            border-top: 3px solid var(--accent-green);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            padding: 6px 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            color: var(--accent-green);
+            text-decoration: none;
+            cursor: pointer;
+            font-family: var(--font-mono);
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb .separator {
+            color: var(--text-muted);
+        }
+
         .anomaly-card {
             background: var(--panel-bg);
             border: 1px solid var(--panel-border);
@@ -136,7 +198,7 @@
 
         .badge {
             font-family: var(--font-mono);
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             padding: 3px 8px;
             border-radius: 4px;
@@ -155,15 +217,21 @@
             border: 1px solid var(--accent-red);
         }
 
-        .badge-pending {
-            background: rgba(0, 191, 255, 0.15);
-            color: var(--accent-blue);
-            border: 1px solid var(--accent-blue);
+        .badge-clearance {
+            background: rgba(0, 255, 102, 0.1);
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+        }
+
+        .badge-updated {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            border: 1px solid var(--panel-border);
         }
 
         .anomaly-id {
             font-family: var(--font-mono);
-            font-size: 24px;
+            font-size: 22px;
             color: var(--text-heading);
             margin-bottom: 4px;
         }
@@ -175,10 +243,9 @@
             font-style: italic;
         }
 
-        /* Information Grid */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 10px;
             background: rgba(0, 0, 0, 0.2);
             padding: 12px;
@@ -191,7 +258,7 @@
         .info-item span {
             color: var(--text-muted);
             display: block;
-            font-size: 11px;
+            font-size: 10px;
             font-family: var(--font-mono);
             text-transform: uppercase;
         }
@@ -200,7 +267,6 @@
             color: var(--text-heading);
         }
 
-        /* Section Header */
         .section-title {
             font-family: var(--font-mono);
             font-size: 15px;
@@ -225,24 +291,34 @@
 
         p { margin-bottom: 12px; }
         ul { padding-left: 20px; margin-bottom: 12px; }
-        li { margin-bottom: 8px; }
+        li { margin-bottom: 6px; }
         li strong { color: var(--text-heading); }
 
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 14px;
-        }
-
-        .form-group label {
-            display: block;
+        .btn-random {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 6px 14px;
+            border-radius: 4px;
             font-family: var(--font-mono);
             font-size: 12px;
-            color: var(--accent-green);
-            margin-bottom: 4px;
-            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
         }
 
-        .form-control {
+        .btn-random:hover {
+            background: rgba(255, 215, 0, 0.4);
+            transform: scale(1.03);
+        }
+
+        .search-box-container {
+            margin-bottom: 16px;
+        }
+
+        .search-input {
+            border: 1px solid var(--accent-green);
+            box-shadow: 0 0 8px rgba(0, 255, 102, 0.1);
             width: 100%;
             background: #0d1117;
             border: 1px solid var(--panel-border);
@@ -253,87 +329,21 @@
             font-size: 13px;
         }
 
-        .form-control:focus {
+        .search-input:focus {
             outline: none;
             border-color: var(--accent-green);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .submit-btn {
-            background: var(--accent-green);
-            color: #000;
-            font-family: var(--font-mono);
-            font-weight: bold;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-
-        .submit-btn:hover {
-            opacity: 0.9;
-        }
-
-        /* Admin Action Buttons */
-        .admin-controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed var(--panel-border);
-        }
-
-        .btn-acc {
-            background: rgba(0, 255, 102, 0.2);
-            color: var(--accent-green);
-            border: 1px solid var(--accent-green);
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-reject {
-            background: rgba(255, 51, 68, 0.2);
-            color: var(--accent-red);
-            border: 1px solid var(--accent-red);
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* Style Baru: Tabel & Search Direktori Home */
-        .search-box-container {
-            margin-bottom: 16px;
-        }
-
-        .search-input {
-            border: 1px solid var(--accent-green);
-            box-shadow: 0 0 8px rgba(0, 255, 102, 0.1);
         }
 
         .tao-directory-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .tao-directory-table th, .tao-directory-table td {
             border: 1px solid var(--panel-border);
-            padding: 10px;
+            padding: 8px;
             text-align: left;
         }
 
@@ -354,9 +364,10 @@
             padding: 4px 8px;
             border-radius: 4px;
             font-family: var(--font-mono);
-            font-size: 11px;
+            font-size: 10px;
             cursor: pointer;
             white-space: nowrap;
+            transition: background 0.3s, color 0.3s;
         }
 
         .btn-quick-view:hover {
@@ -364,24 +375,130 @@
             color: #000;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--text-muted);
-            padding: 20px 0 10px 0;
-            border-top: 1px solid var(--panel-border);
-            margin-top: 20px;
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--panel-border);
+            flex-wrap: wrap;
         }
 
-        /* Optimal Responsi di HP */
+        .death-battle-tag {
+            background: rgba(255, 51, 68, 0.3);
+            color: #ff6677;
+            border: 1px solid var(--accent-red);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: bold;
+            font-family: var(--font-mono);
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        .history-timeline {
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid var(--accent-green);
+            margin: 10px 0 20px 0;
+        }
+
+        .history-event {
+            margin-bottom: 20px;
+            padding-left: 16px;
+        }
+
+        .history-event .year {
+            font-family: var(--font-mono);
+            color: var(--accent-gold);
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .history-event .title {
+            color: var(--text-heading);
+            font-size: 15px;
+            font-weight: bold;
+            margin: 4px 0;
+        }
+
+        .history-event p {
+            margin: 4px 0 0 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .lore-connection {
+            background: rgba(0, 191, 255, 0.05);
+            border-left: 3px solid var(--accent-blue);
+            padding: 10px 14px;
+            margin: 10px 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .lore-connection strong {
+            color: var(--accent-blue);
+        }
+
+        .weakness-box {
+            background: rgba(255, 51, 68, 0.08);
+            border-left: 3px solid var(--accent-red);
+            padding: 10px 14px;
+            margin: 10px 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .weakness-box strong {
+            color: var(--accent-red);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 10px;
+            border-top: 1px solid var(--panel-border);
+            margin-top: 20px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        footer .footer-links a {
+            color: var(--accent-green);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        footer .footer-links a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 480px) {
             body { padding: 8px; }
             .anomaly-card { padding: 14px; }
-            .anomaly-id { font-size: 20px; }
+            .anomaly-id { font-size: 18px; }
             .info-grid { grid-template-columns: 1fr; }
-            .tao-directory-table th, .tao-directory-table td { padding: 6px; font-size: 12px; }
+            .tao-directory-table th, .tao-directory-table td { padding: 5px; font-size: 10px; }
+            .breadcrumb { font-size: 10px; }
+            .nav-tabs { gap: 4px; }
+            .tab-btn { padding: 4px 8px; font-size: 10px; }
+        }
+
+        @media (max-width: 380px) {
+            .tab-btn { font-size: 9px; padding: 3px 6px; }
+            .badge { font-size: 8px; padding: 2px 5px; }
         }
     </style>
 </head>
@@ -392,96 +509,137 @@
         <div class="clearance-banner">RESTRICTED ACCESS - CLEARANCE LEVEL 5</div>
     </header>
 
-    <!-- UPDATE: Menu + Submit & Komunitas dipindahkan ke awal dekat Home -->
     <div class="nav-tabs" id="navTabsContainer">
-        <button class="tab-btn active" onclick="switchTab('home')">HOME (Dunia TAO)</button>
-        <button class="tab-btn special-tab" onclick="switchTab('rules-submit')">+ SUBMIT ANOMALI & ATURAN</button>
-        <button class="tab-btn special-tab" onclick="switchTab('community-tab')">ANOMALI KOMUNITAS</button>
-        <button class="tab-btn" onclick="switchTab('tao-001')">TAO-001 (Cardall)</button>
-        <button class="tab-btn" onclick="switchTab('tao-002')">TAO-002 (Imawri)</button>
-        <button class="tab-btn" onclick="switchTab('tao-003')">TAO-003 (The Paralyzing Radio)</button>
-        <button class="tab-btn" onclick="switchTab('tao-004')">TAO-004 (The Echo Doll)</button>
-        <button class="tab-btn" onclick="switchTab('tao-005')">TAO-005 (The Living Painting)</button>
-        <button class="tab-btn" onclick="switchTab('tao-006')">TAO-006 (The Broken Watchmaker)</button>
-        <button class="tab-btn" onclick="switchTab('tao-007')">TAO-007 (Gorgoroth)</button>
-        <button class="tab-btn" onclick="switchTab('tao-008')">TAO-008 (Vaelis)</button>
+        <button class="tab-btn active" onclick="switchTab('home')">🏠 HOME</button>
+        <button class="tab-btn special-tab" onclick="switchTab('history')">📜 SEJARAH</button>
+        <button class="tab-btn" onclick="switchTab('tao-001')">TAO-001</button>
+        <button class="tab-btn" onclick="switchTab('tao-002')">TAO-002</button>
+        <button class="tab-btn" onclick="switchTab('tao-003')">TAO-003</button>
+        <button class="tab-btn" onclick="switchTab('tao-004')">TAO-004</button>
+        <button class="tab-btn" onclick="switchTab('tao-005')">TAO-005</button>
+        <button class="tab-btn" onclick="switchTab('tao-006')">TAO-006</button>
+        <button class="tab-btn" onclick="switchTab('tao-007')">TAO-007</button>
+        <button class="tab-btn" onclick="switchTab('tao-008')">TAO-008</button>
+        <button class="tab-btn" onclick="switchTab('tao-009')">TAO-009</button>
+        <button class="tab-btn" onclick="switchTab('tao-010')">TAO-010</button>
+        <button class="tab-btn" onclick="switchTab('tao-011')">TAO-011</button>
     </div>
 
-    <!-- TAB HOME (OVERVIEW DUNIA TAO) -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+        <p style="margin-top: 10px;">Memuat data...</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- TAB HOME                                     -->
+    <!-- ============================================ -->
     <main id="home" class="anomaly-card tab-content active">
         <div class="badge-container">
             <span class="badge badge-tier">World Status: Anomaly Active</span>
             <span class="badge badge-status">Planet Scale: 10x Earth</span>
+            <span class="badge badge-clearance">Total Anomali: 11</span>
         </div>
 
-        <h1 class="anomaly-id">DATABASE DUNIA TAO</h1>
-        <div class="anomaly-alias">Profil Planet, Struktur Organisasi, & Direktori Penahanan</div>
+        <h1 class="anomaly-id">DATABASE GEOSPASIAL & ANOMALI DUNIA TAO</h1>
+        <div class="anomaly-alias">Profil Ekosistem Planet, Struktur Strategis Organisasi, & Kompendium Penahanan</div>
 
-        <!-- UPDATE: Fitur Pencarian TAO di Home -->
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;">
+            <button class="btn-random" onclick="goToRandomAnomaly()">🎲 Random Anomaly</button>
+        </div>
+
         <div class="search-box-container">
-            <input type="text" id="taoSearchInput" class="form-control search-input" placeholder="🔍 Cari TAO (Contoh: Cardall, TAO-007, Tier 0, Outerverse)..." onkeyup="filterTaoDirectory()">
+            <input type="text" id="taoSearchInput" class="search-input" placeholder="🔍 Cari TAO (Contoh: Cardall, TAO-009, Tier 0, Outerverse)..." onkeyup="filterTaoDirectory()">
         </div>
 
-        <!-- UPDATE: Daftar Nama TAO & Tier di Home -->
         <div class="section-title">DIREKTORI DAFTAR ANOMALI TAO</div>
         <div style="overflow-x: auto;">
             <table class="tao-directory-table" id="taoDirectoryTable">
                 <thead>
                     <tr>
-                        <th>ID TAO</th>
-                        <th>Nama / Alias</th>
+                        <th>A-ID</th>
+                        <th>Nama / Alias Khas TAO</th>
                         <th>Tier / Power Scale</th>
+                        <th>Clearance</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="taoDirectoryTableBody">
                     <tr>
                         <td><strong>TAO-001</strong></td>
-                        <td>Cardall (Dewa Utama TAO)</td>
+                        <td>Cardall — Dewa Utama TAO</td>
                         <td><span class="badge badge-tier">Tier 0: Absolute Boundless</span></td>
-                        <td><button class="btn-quick-view" onclick="switchTab('tao-001')">Buka File</button></td>
+                        <td><span class="badge badge-clearance">Lv.5</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-001')">Buka</button></td>
                     </tr>
                     <tr>
                         <td><strong>TAO-002</strong></td>
-                        <td>Imawri (The Stellar Terror)</td>
+                        <td>Imawri — The Stellar Terror</td>
                         <td><span class="badge badge-tier">Tier 0: Boundless</span></td>
-                        <td><button class="btn-quick-view" onclick="switchTab('tao-002')">Buka File</button></td>
+                        <td><span class="badge badge-clearance">Lv.5</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-002')">Buka</button></td>
                     </tr>
                     <tr>
                         <td><strong>TAO-003</strong></td>
                         <td>The Paralyzing Radio</td>
-                        <td><span class="badge badge-pending">Class-Object</span></td>
-                        <td><button class="btn-quick-view" onclick="switchTab('tao-003')">Buka File</button></td>
+                        <td><span class="badge badge-tier">Class-Object</span></td>
+                        <td><span class="badge badge-clearance">Lv.3</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-003')">Buka</button></td>
                     </tr>
                     <tr>
                         <td><strong>TAO-004</strong></td>
                         <td>The Echo Doll</td>
-                        <td><span class="badge badge-pending">Class-Entity</span></td>
-                        <td><button class="btn-quick-view" onclick="switchTab('tao-004')">Buka File</button></td>
+                        <td><span class="badge badge-tier">Class-Entity</span></td>
+                        <td><span class="badge badge-clearance">Lv.3</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-004')">Buka</button></td>
                     </tr>
                     <tr>
                         <td><strong>TAO-005</strong></td>
                         <td>The Living Painting</td>
-                        <td><span class="badge badge-pending">Class-Object / Dimensional</span></td>
-                        <td><button class="btn-quick-view" onclick="switchTab('tao-005')">Buka File</button></td>
+                        <td><span class="badge badge-tier">Class-Object / Dimensional</span></td>
+                        <td><span class="badge badge-clearance">Lv.3</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-005')">Buka</button></td>
                     </tr>
                     <tr>
                         <td><strong>TAO-006</strong></td>
                         <td>The Broken Watchmaker</td>
-                        <td><span class="badge badge-pending">Class-Entity</span></td>
-                        <td><button class="btn-quick-view" onclick="switchTab('tao-006')">Buka File</button></td>
+                        <td><span class="badge badge-tier">Class-Entity</span></td>
+                        <td><span class="badge badge-clearance">Lv.3</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-006')">Buka</button></td>
                     </tr>
                     <tr>
                         <td><strong>TAO-007</strong></td>
-                        <td>Gorgoroth (Abyssal Earth-Eater)</td>
+                        <td>Gorgoroth — Abyssal Earth-Eater</td>
                         <td><span class="badge badge-tier">Tier 1-A: High Hyperverse</span></td>
-                        <td><button class="btn-quick-view" onclick="switchTab('tao-007')">Buka File</button></td>
+                        <td><span class="badge badge-clearance">Lv.4</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-007')">Buka</button></td>
                     </tr>
                     <tr>
                         <td><strong>TAO-008</strong></td>
-                        <td>Vaelis (Sovereign of Void)</td>
-                        <td><span class="badge badge-tier">Tier 1-A: Outerverse / High Outer</span></td>
-                        <td><button class="btn-quick-view" onclick="switchTab('tao-008')">Buka File</button></td>
+                        <td>Vaelis — Sovereign of Void</td>
+                        <td><span class="badge badge-tier">Tier 1-A: Outerverse</span></td>
+                        <td><span class="badge badge-clearance">Lv.4</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-008')">Buka</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TAO-009</strong></td>
+                        <td>The Undetectable Prototype</td>
+                        <td><span class="badge badge-tier">Tier 0: Boundless (Anti-TAO-002)</span></td>
+                        <td><span class="badge badge-clearance">Lv.5</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-009')">Buka</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TAO-010</strong></td>
+                        <td>The Shattered Aegis</td>
+                        <td><span class="badge badge-tier">Tier 1-B: Hyperversal</span></td>
+                        <td><span class="badge badge-clearance">Lv.4</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-010')">Buka</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TAO-011</strong></td>
+                        <td>The Echoing Null</td>
+                        <td><span class="badge badge-tier">Tier 1-A: Outerverse</span></td>
+                        <td><span class="badge badge-clearance">Lv.4</span></td>
+                        <td><button class="btn-quick-view" onclick="switchTab('tao-011')">Buka</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -490,667 +648,765 @@
         <div class="info-grid" style="margin-top: 20px;">
             <div class="info-item">
                 <span>Skala Planet</span>
-                <strong>10x Ukuran Bumi (~1.27 Milyar km² Area)</strong>
+                <strong>10x Ukuran Bumi</strong>
             </div>
             <div class="info-item">
-                <span>Total Sektor Terdaftar</span>
-                <strong>128 Sektor Regional & Abyssal Vaults</strong>
+                <span>Total Sektor</span>
+                <strong>128 Sektor</strong>
             </div>
             <div class="info-item">
-                <span>Tingkat Eksplorasi</span>
-                <strong>28% Terjamah / 72% Wild Anomaly Zones</strong>
+                <span>Eksplorasi</span>
+                <strong>28% Terjamah</strong>
             </div>
             <div class="info-item">
                 <span>Otoritas Tertinggi</span>
-                <strong>Council of Level 5 Clearance / TAO-001</strong>
+                <strong>Cardall (TAO-001)</strong>
             </div>
         </div>
 
-        <div class="section-title">I. DESKRIPSI DUNIA TAO</div>
+        <div class="section-title">I. MANTRA EKSPANSI & GEOLOGI EXTREME PLANET TAO</div>
         <p>
-            Dunia TAO adalah planet masif berukuran <strong>10 kali lipat lebih besar dari Bumi</strong>. Karena ukurannya yang sangat masif, struktur geografi, medan gravitasional, serta distribusi atmosfer planet ini terbagi menjadi ratusan zona terisolasi. Lebih dari 70% permukaan planet terdiri dari benua liar, samudra abisal tak terukur, serta ruang vakum anomali yang belum terjamah oleh teknologi peradaban manusia modern.
-        </p>
-        <p>
-            Di planet raksasa ini, hukum fisika konvensional sering kali runtuh di zona-zona tertentu. Hal ini melahirkan entitas-entitas anomali dengan daya hancur ekstrem, ruang-waktu yang terdistorsi, hingga eksistensi tingkat kosmik yang tidak dapat dicerna oleh logika biasa.
+            Dunia TAO adalah puing-puing dari perang antardewa primordial—mayat para dewa yang mengkristal menjadi planet seluas 10x Bumi. 72% wilayahnya adalah luka terbuka konseptual yang belum sembuh.
         </p>
 
-        <div class="section-title">II. PERAN ORGANISASI TAO</div>
+        <div class="section-title">II. PERAN STRATEGIS ORGANISASI TAO</div>
         <p>
-            <strong>The Anomaly Organization (TAO)</strong> adalah lembaga global rahasia yang bertugas mendeteksi, meneliti, mengisolasi, dan jika memungkinkan, menahan entitas serta objek anomali di seluruh penjuru planet raksasa ini.
+            TAO adalah Otoritas Pertahanan Eksistensial Tertinggi, didirikan berdasarkan petunjuk langsung dari Cardall untuk menjaga realitas agar tidak runtuh.
         </p>
-        <ul>
-            <li><strong>Sektor Terdistribusi:</strong> Organisasi TAO mendirikan ratusan Fasilitas Sektor Penahanan (Sektor-01 hingga Sektor-128) yang dipisahkan oleh ribuan kilometer benua dan lautan.</li>
-            <li><strong>Mobilitas Sub-Kuantum:</strong> Mengingat jarak antar sektor yang ekstrem, TAO memanfaatkan teknologi translokasi kuantum dan gerbang ruang-waktu untuk memindahkan personel serta logistik penahanan.</li>
-            <li><strong>Hierarki Klasifikasi:</strong> Seluruh arsip anomali dikelompokkan berdasarkan ancaman, tipe eksistensi, dan potensi destruktif dalam pertarungan atau peristiwa krisis (*Debate/Battle Scaling*).</li>
-        </ul>
 
-        <div class="section-title">III. PANDUAN NAVIGASI DATABASE</div>
-        <p>
-            Gunakan tab navigasi di bagian atas untuk mengakses berkas rahasia dari masing-masing anomali yang terdaftar (TAO-001 hingga TAO-008, serta pengajuan komunitas). Akses dokumen ini dilindungi oleh otorisasi <strong>Clearance Level 5</strong>.
-        </p>
+        <div style="background: rgba(255, 51, 68, 0.1); border: 1px solid var(--accent-red); border-radius: 6px; padding: 12px; margin-top: 16px;">
+            <p style="margin: 0; font-size: 13px; color: var(--accent-red); font-family: var(--font-mono);">
+                ⚔️ <strong>DEATH BATTLE READY:</strong> TAO-010 & TAO-011 dirancang khusus untuk skenario pertarungan antar-anomali.
+            </p>
+        </div>
     </main>
 
-    <!-- TAB TAO-001 (CARDALL) -->
+    <!-- ============================================ -->
+    <!-- TAB SEJARAH & KANON                         -->
+    <!-- ============================================ -->
+    <main id="history" class="anomaly-card tab-content">
+        <div class="breadcrumb">
+            <a onclick="switchTab('home')">🏠 Home</a>
+            <span class="separator">›</span>
+            <span>Sejarah & Kanon</span>
+        </div>
+
+        <div class="badge-container">
+            <span class="badge badge-tier">KANON RESMI</span>
+            <span class="badge badge-status">Dokumen Fundamental</span>
+            <span class="badge badge-clearance">Clearance Level 5</span>
+            <span class="badge badge-updated">📅 Diresmikan: 2026-09-05</span>
+        </div>
+
+        <h1 class="anomaly-id">SEJARAH & STRUKTUR REALITAS DUNIA TAO</h1>
+        <div class="anomaly-alias">Dokumen Kanonik — Jawaban atas Segala Misteri</div>
+
+        <div class="section-title">I. ASAL-USUL DUNIA TAO</div>
+        <p><strong>Dunia TAO bukanlah ciptaan alamiah.</strong> Ia adalah puing-puing dari perang antardewa primordial yang terjadi di luar jangkauan waktu dan dimensi. Tubuh para dewa yang gugur mengkristal menjadi gumpalan realitas—salah satunya adalah Planet TAO. Ukurannya 10x Bumi karena terbentuk dari puluhan mayat dewa. 72% wilayahnya adalah luka terbuka konseptual yang belum sembuh.</p>
+
+        <div class="section-title">II. BAGAIMANA TAO MENEMUKAN CARDALL?</div>
+        <p><strong>Cardall tidak ditemukan. Cardall selalu ada.</strong> TAO awalnya adalah kultus kuno. Dr. Elara Voss menemukan kartu fisik bernama "CARDALL" di Sektor-99. Saat disentuh, ia mendapat penglihatan: Cardall duduk di takhta realitas terlipat dan berfirman: <em>"Bangunlah organisasi ini."</em> Dr. Voss mendirikan TAO dengan struktur 128 Sektor dan Clearance Level sesuai petunjuk Cardall.</p>
+
+        <div class="section-title">III. DEWAN PENJAGA REALITAS</div>
+        <ul>
+            <li><strong>Cardall (Aspek: Absolut)</strong> — Pengawas utama.</li>
+            <li><strong>Imawri (Aspek: Kekacauan)</strong> — Menjaga kekacauan tidak berlebihan.</li>
+            <li><strong>Vaelis (Aspek: Ketiadaan)</strong> — Menghapus yang tidak boleh ada.</li>
+            <li><strong>Gorgoroth (Aspek: Stabilitas Fisik)</strong> — Menjaga realitas fisik.</li>
+            <li><strong>Echoing Null (Aspek: Identitas)</strong> — Menjaga realitas tidak "lupa" dirinya.</li>
+        </ul>
+
+        <div class="section-title">IV. MENGAPA ANOMALI ADA?</div>
+        <p>Anomali adalah bekas luka perang primordial—konsep-konsep yang hancur dan mengambang di ruang antar-realitas, lalu menempel ke Planet TAO.</p>
+
+        <div class="section-title">V. HUBUNGAN ANTAR ANOMALI</div>
+        <div class="history-timeline">
+            <div class="history-event"><div class="year">🔗 TAO-001 ↔ TAO-002</div><div class="title">Cardall & Imawri</div><p>Pencipta & Penghancur — dua sisi koin yang sama.</p></div>
+            <div class="history-event"><div class="year">🔗 TAO-001 ↔ TAO-008</div><div class="title">Cardall & Vaelis</div><p>Hakim & Eksekutor.</p></div>
+            <div class="history-event"><div class="year">🔗 TAO-002 ↔ TAO-009</div><div class="title">Imawri & Prototype</div><p>Target & Pemburu — konflik abadi.</p></div>
+            <div class="history-event"><div class="year">🔗 TAO-007 ↔ TAO-010</div><div class="title">Gorgoroth & Aegis</div><p>Stabilitas vs Refleksi — kehancuran timbal balik.</p></div>
+            <div class="history-event"><div class="year">🔗 TAO-011 ↔ SEMUA</div><div class="title">Echoing Null</div><p>Cermin segalanya — meniru semua tapi kehilangan identitas.</p></div>
+        </div>
+    </main>
+
+    <!-- ============================================ -->
+    <!-- TAO-001: CARDALL — DETAIL LENGKAP           -->
+    <!-- ============================================ -->
     <main id="tao-001" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-001</span></div>
+
         <div class="badge-container">
             <span class="badge badge-tier">Tier 0: Absolute Boundless</span>
             <span class="badge badge-status">Uncontainable</span>
+            <span class="badge badge-clearance">Clearance Level 5</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
         </div>
 
-        <h1 class="anomaly-id">TAO-001: "CARDALL"</h1>
-        <div class="anomaly-alias">Gelar: Supreme Deity of TAO (Dewa Utama TAO) / The Prime Anomaly</div>
+        <h1 class="anomaly-id">A-ID TAO-001: "CARDALL"</h1>
+        <div class="anomaly-alias">Dewa Utama TAO / The Prime Anomaly / Penjaga Realitas Absolut</div>
 
         <div class="info-grid">
-            <div class="info-item">
-                <span>Wujud Visual</span>
-                <strong>Humanoid (Manusia)</strong>
-            </div>
-            <div class="info-item">
-                <span>Klasifikasi</span>
-                <strong>Apex / Reality Warper / Absolute Free Entity</strong>
-            </div>
-            <div class="info-item">
-                <span>Status Penahanan</span>
-                <strong>Tidak Dapat Dikurung</strong>
-            </div>
-            <div class="info-item">
-                <span>Tingkat Ancaman</span>
-                <strong>Catastrophic / Divine</strong>
-            </div>
-            <div class="info-item">
-                <span>Attack Potency</span>
-                <strong>Boundless / Irrelevant</strong>
-            </div>
-            <div class="info-item">
-                <span>Speed</span>
-                <strong>Irrelevant / Instantaneous</strong>
-            </div>
-            <div class="info-item">
-                <span>Durability</span>
-                <strong>Absolute Transcendence / Undefined</strong>
-            </div>
-            <div class="info-item">
-                <span>IQ & Intellect</span>
-                <strong>Boundless IQ</strong>
-            </div>
+            <div class="info-item"><span>Wujud</span><strong>Humanoid Sempurna (185 cm)</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Apex / Reality Warper</strong></div>
+            <div class="info-item"><span>Status</span><strong>Uncontainable</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Divine Absolute</strong></div>
+            <div class="info-item"><span>AP</span><strong>Boundless / Irrelevant</strong></div>
+            <div class="info-item"><span>Speed</span><strong>Irrelevant / Instant</strong></div>
+            <div class="info-item"><span>Durability</span><strong>Absolute Transcendence</strong></div>
+            <div class="info-item"><span>IQ</span><strong>Boundless (Omniscient)</strong></div>
         </div>
 
-        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
-        <p>
-            TAO-001 ("Cardall") adalah anomali pertama dan tertinggi yang terdeteksi oleh Organisasi TAO. Memegang status tertinggi sebagai <strong>Dewa Utama TAO</strong>, entitas ini memiliki kecerdasan tanpa batas (boundless IQ), manipulasi realitas subatomik, adaptasi mutlak, serta kemampuan memanifestasikan kartu fisik secara instan. Cardall berdiri di atas seluruh struktur hierarki eksistensi, menjadikannya entitas yang tidak terikat oleh konsep atau hukum apa pun.
-        </p>
+        <div class="section-title">I. SIFAT EKSISTENSI — MENGAPA CARDALL TIDAK TERKALAHKAN</div>
+        <p><strong>Cardall bukan bagian dari fiksi manapun.</strong> Ia tidak tinggal di dalam cerita, tidak diciptakan oleh penulis, tidak terikat plot. Ia adalah entitas di luar semua narasi—seperti penonton yang melihat lukisan dari luar. Tidak ada karakter di dalam lukisan yang bisa menyentuhnya.</p>
+        <p><strong>Absolute Boundless:</strong> Cardall berada di puncak skala kekuatan. Tidak ada konsep yang bisa mendefinisikannya, tidak ada batas yang bisa membatasinya.</p>
+        <p><strong>Total Apathy:</strong> Tidak memiliki emosi. Tidak bisa dimanipulasi secara psikologis. Tidak ada "titik lemah" emosional.</p>
+        <p><strong>Boundless IQ:</strong> Memproses semua informasi, semua variabel, semua kemungkinan, semua garis waktu, semua dimensi, dan semua fiksi secara instan dan bersamaan.</p>
+        <p><strong>Absolute Transcendence:</strong> Tidak bisa mati. Bukan karena regenerasi, tapi karena konsep "kematian" tidak berlaku padanya. Jika realitas dihapus, Cardall tetap ada.</p>
 
-        <div class="section-title">II. PROFIL ATRIBUT ABSOLUT</div>
+        <div class="lore-connection"><strong>🔗 ASAL-USUL:</strong> Cardall adalah satu-satunya dewa yang selamat dari perang primordial. Ia mengkristalkan mayat-mayat dewa lainnya menjadi Planet TAO dan mendirikan Organisasi TAO sebagai tangannya di dunia fisik.</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN — LENGKAP</div>
         <ul>
-            <li><strong>Total Apathy (Kebal Emosi):</strong> Permanen tidak memiliki rasa lapar, sakit, kasihan, sedih, kecewa, senang, maupun penyesalan. Seluruh celah kelemahan emosional atau psikologis hilang secara mutlak.</li>
-            <li><strong>Boundless IQ:</strong> Mampu mengkalkulasi dan memproses seluruh variabel di alam semesta secara instan tanpa terikat batasan logika.</li>
-            <li><strong>Penginderaan Dinamis:</strong> Seluruh indra dapat disesuaikan kepekaannya secara bebas, dari skala makro hingga mendeteksi getaran tingkat subatomik.</li>
-            <li><strong>Extreme Adaptation & OP Physicals:</strong> Daya hancur dan kelincahan fisik tanpa batas yang dirancang untuk efisiensi pertempuran mutlak, serta beradaptasi instan terhadap segala ancaman.</li>
-            <li><strong>Kebebasan Mutlak & Immortality Sejati (Absolute Transcendence):</strong> Entitas ini 100% bebas dari segala hukum, hierarki, atau tingkat ketiadaan (termasuk intervensi dari entitas tingkat Boundless atau penghapusan konsep). Jika wujud, konsep, atau eksistensinya dihapus oleh entitas mana pun, Cardall tidak akan terhapus dan akan tetap eksis secara mutlak di dunia, dimensi, atau ketiadaan mana pun tanpa terpengaruh sedikit pun.</li>
+            <li><strong>Card Reiteration:</strong> Mengubah segala sesuatu menjadi kartu—kekuatan musuh, skill, hukum alam, konsep abstrak, realitas itu sendiri. Bahkan kekuatan Tier 0 Boundless pun bisa dijadikan kartu.</li>
+            <li><strong>Card Imprisonment:</strong> Menyegel entitas apa pun ke dalam kartu. Setelah tersegel, tidak bisa keluar kecuali Cardall mengizinkan. Tidak ada kekuatan atau hax yang bisa membebaskan mereka.</li>
+            <li><strong>Reality Warping:</strong> Mengubah realitas sesuka hati—hukum fisika, dimensi, masa lalu/sekarang/masa depan, mencipta atau menghancurkan alam semesta.</li>
+            <li><strong>Atomic Rearrangement:</strong> Mengendalikan struktur atom segala sesuatu—mengubah materi menjadi energi, energi menjadi materi, mengubah struktur molekuler secara instan.</li>
+            <li><strong>Subatomic Deconstruction:</strong> Mengurai tubuh menjadi atom tunggal, menyusup ke celah atom target, dan menghancurkannya dari dalam. Menembus semua pertahanan.</li>
+            <li><strong>Teleportasi Vektor Bebas:</strong> Berpindah ke mana pun secara instan—lokasi fisik, dimensi, garis waktu, realitas, fiksi mana pun.</li>
+            <li><strong>Conceptual Manipulation:</strong> Menghapus atau menciptakan konsep—menghapus konsep "kematian", "kekalahan", atau "keberadaan".</li>
+            <li><strong>Absolute Immunity:</strong> Tidak bisa dilukai oleh apa pun. Serangan fisik, energi, sihir, konseptual, hax, bahkan dari Tier 0 Boundless lain—semua tidak berpengaruh.</li>
         </ul>
 
-        <div class="section-title">III. KEMAMPUAN ANOMALI UTAMA (SPECIAL HAX & ABILITIES)</div>
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Tidak ada. Cardall tidak memiliki kelemahan. Ini adalah fakta absolut.</div>
+
+        <div class="section-title">III. DEATH BATTLE — CARDALL VS ALL FICTION</div>
         <ul>
-            <li><strong>Manifestasi & Penyalinan Kartu (Card Reiteration):</strong> Mampu menyalin, meniru, atau menciptakan skill, teknik, atau konsep apa pun menjadi bentuk kartu fisik secara instan lewat pemikiran.</li>
-            <li><strong>Penyegelan Kartu (Card Imprisonment):</strong> Mengubah entitas lain, materi, atau area di sekitarnya menjadi kartu fisik untuk dikurung secara mutlak.</li>
-            <li><strong>Manipulasi Atom (Atomic Rearrangement):</strong> Merombak dan mengendalikan susunan atom materi di sekitarnya sesuka hati.</li>
-            <li><strong>Translokasi Subatomik (Subatomic Deconstruction):</strong> Mengurai wujudnya menjadi atom tunggal, menyusup ke dalam atom benda/makhluk lain, dan menghancurkannya dari dalam (Durability Negation).</li>
-            <li><strong>Teleportasi Bebas:</strong> Berpindah ke titik mana pun di ruang, waktu, dan dimensi secara instan tanpa batasan fisik.</li>
-            <li><strong>Reality Warping & Conceptual Manipulation:</strong> Memanipulasi realitas dan konsep dasar eksistensi secara bebas tanpa batas.</li>
-            <li><strong>Durability Negation & Absolute Immunity:</strong> Serangan mengabaikan pertahanan fisik/konseptual target serta kebal terhadap segala bentuk manipulasi dan perusakan.</li>
+            <li><strong>Cardall vs Goku:</strong> Cardall menang instan. Goku diubah menjadi kartu sebelum bergerak.</li>
+            <li><strong>Cardall vs Saitama:</strong> Cardall menang. Gag power Saitama tidak bekerja di luar fiksinya.</li>
+            <li><strong>Cardall vs SCP-3812:</strong> Cardall menang. 3812 melampaui narasi, tapi Cardall melampaui semua fiksi—termasuk SCP.</li>
+            <li><strong>Cardall vs The One Above All (Marvel):</strong> Cardall menang. TOAA hanya di Marvel, Cardall di atas semua fiksi.</li>
+            <li><strong>Cardall vs Azathoth (Lovecraft):</strong> Cardall menang. Azathoth terikat mimpi, Cardall melampaui mimpi dan realitas.</li>
+            <li><strong>Cardall vs Featherine (Umineko):</strong> Cardall menang. Featherine adalah penulis, Cardall adalah entitas di atas penulis.</li>
+            <li><strong>Cardall vs SEMUA FIKSI SEKALIGUS:</strong> Cardall menang. Semua karakter fiksi diubah menjadi kartu dalam 0 detik.</li>
         </ul>
 
-        <div class="section-title">IV. PROSEDUR PENANAHAN KHUSUS</div>
-        <p>
-            <strong>STATUS: UNCONTAINABLE (TIDAK DAPAT DIKURUNG).</strong>
-        </p>
-        <p>
-            Tidak ada fasilitas fisik yang mampu menahan TAO-001. Seluruh personel TAO dilarang keras melakukan tindakan provokatif dan diwajibkan memperlakukan TAO-001 sebagai entitas tertinggi (Dewa Utama). Pemantauan hanya dilakukan dari jarak jauh menggunakan sensor subatomik pasif.
-        </p>
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>UNCONTAINABLE.</strong> Cardall tidak bisa dikurung. Perlakukan sebagai entitas penguasa tertinggi. Jangan provokasi. Jangan coba serang. Tidak ada protokol yang bisa menahannya.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali ke Direktori</button></div>
     </main>
 
-    <!-- TAB TAO-002 (IMAWRI) -->
+    <!-- ============================================ -->
+    <!-- TAO-002: IMAWRI — DETAIL LENGKAP           -->
+    <!-- ============================================ -->
     <main id="tao-002" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-002</span></div>
+
         <div class="badge-container">
             <span class="badge badge-tier">Tier 0: Boundless</span>
             <span class="badge badge-status">Uncontainable</span>
+            <span class="badge badge-clearance">Clearance Level 5</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
         </div>
 
-        <h1 class="anomaly-id">TAO-002: "IMAWRI"</h1>
-        <div class="anomaly-alias">Gelar: The Stellar Terror / Cosmic Hawk Enforcer</div>
+        <h1 class="anomaly-id">A-ID TAO-002: "IMAWRI"</h1>
+        <div class="anomaly-alias">The Stellar Terror / Cosmic Hawk Enforcer / Penjaga Kekacauan</div>
 
         <div class="info-grid">
-            <div class="info-item">
-                <span>Wujud Visual</span>
-                <strong>Elang Raksasa Bungkuk (Avian Terror)</strong>
-            </div>
-            <div class="info-item">
-                <span>Klasifikasi</span>
-                <strong>Predator Kosmik / Omniscient</strong>
-            </div>
-            <div class="info-item">
-                <span>Status Penahanan</span>
-                <strong>Tidak Dapat Dikurung</strong>
-            </div>
-            <div class="info-item">
-                <span>Tingkat Ancaman</span>
-                <strong>Catastrophic / Cosmic Extinction</strong>
-            </div>
+            <div class="info-item"><span>Wujud</span><strong>Elang Raksasa Bungkuk (500+ meter)</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Predator Kosmik / Omniscient Terror</strong></div>
+            <div class="info-item"><span>Status</span><strong>Uncontainable</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Cosmic Extinction</strong></div>
+            <div class="info-item"><span>AP</span><strong>Boundless</strong></div>
+            <div class="info-item"><span>Speed</span><strong>Irrelevant</strong></div>
+            <div class="info-item"><span>Durability</span><strong>Boundless</strong></div>
+            <div class="info-item"><span>IQ</span><strong>Omniscient</strong></div>
         </div>
 
-        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
-        <p>
-            TAO-002 ("Imawri") adalah entitas anomali kosmik berbentuk elang raksasa dengan posisi berdiri agak membungkuk. Seluruh organ dalamnya bukan berupa sel biologis, melainkan susunan gugusan bintang aktif. Memiliki kesadaran yang terhubung langsung ke seluruh multiverse, kekuatan api adaptif yang membakar molekul udara tanpa butuh oksigen, serta persepsi waktu tanpa batas.
-        </p>
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p>Imawri adalah predator kosmik dengan organ tubuh berupa gugusan bintang, nebula, dan reaksi nuklir aktif. Ia adalah <strong>penjaga kekacauan</strong>—memastikan bahwa kekacauan tidak melampaui batas yang ditentukan oleh Cardall. Ia tidak memerlukan oksigen, makanan, atau istirahat. Tubuhnya secara konstan membakar molekul udara di sekitarnya.</p>
 
-        <div class="section-title">II. ANATOMI & FISIOLOGI KOSMIK</div>
+        <div class="lore-connection"><strong>🔗 HUBUNGAN:</strong> Imawri adalah anggota Dewan Penjaga Realitas, memegang aspek kekacauan. TAO-009 diciptakan khusus untuk menahannya, tetapi tidak pernah berhasil sepenuhnya.</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN</div>
         <ul>
-            <li><strong>Organ Tubuh Bintang (Stellar Anatomy):</strong> Tidak memiliki organ biologis standar (jantung, paru-paru, dll.). Seluruh fungsi vital digantikan oleh gugusan bintang dan nebula aktif. Tidak membutuhkan respirasi, makanan, atau oksigen.</li>
-            <li><strong>Lingkungan Terbakar Spontan:</strong> Panas tubuhnya membakar udara di sekitarnya secara konstan. Mampu berjalan di atas permukaan apa pun, termasuk ruang hampa, konsep, maupun dimensi abstrak.</li>
-            <li><strong>Total Apathy (Kebal Emosi):</strong> Memiliki kondisi emosional yang sama dengan TAO-001 (kebal terhadap manipulasi psikologis, rasa takut, rasa sakit, atau empati).</li>
-            <li><strong>Persepsi Waktu Lambat (Absolute Speed):</strong> Memiliki kecepatan Boundless/Irrelevant. Seluruh pergerakan objek dan eksistensi di multiverse terasa bergerak sangat lambat dalam pandangannya.</li>
+            <li><strong>Multiversal Neural Connection (Omniscience):</strong> Kesadaran sarafnya terhubung ke semua informasi di seluruh multiverse. Tahu segalanya yang terjadi di mana pun.</li>
+            <li><strong>Precognition 2 Hari (Absolute):</strong> Mengetahui semua peristiwa yang akan terjadi hingga 48 jam ke depan dengan kepastian mutlak. Tidak ada celah deviasi.</li>
+            <li><strong>Adaptive Extinction Flame:</strong> Api kosmik yang menyesuaikan suhunya secara instan untuk melampaui dan membatalkan ketahanan musuh. Tidak membutuhkan oksigen. Tidak pernah padam sampai target terhapus.</li>
+            <li><strong>10x Reflection Amplification:</strong> Setiap serangan yang mengenai tubuhnya dipantulkan balik dengan kekuatan 10 kali lipat. Bekerja pada serangan fisik, energi, sihir, dan konseptual.</li>
+            <li><strong>Existence Regression:</strong> Mengembalikan kondisi target ke masa sebelum mereka diciptakan—menghapus mereka dari realitas.</li>
+            <li><strong>Void Regeneration:</strong> Memulihkan struktur wujud dan konsepnya secara instan dari ketiadaan.</li>
+            <li><strong>Absolute Hypnosis:</strong> Mengendalikan pikiran makhluk apa pun tanpa terpengaruh ketahanan mental.</li>
         </ul>
 
-        <div class="section-title">III. KEMAMPUAN ANOMALI UTAMA</div>
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Imawri tidak bisa dikendalikan atau dijinakkan. Satu-satunya "kelemahan" adalah TAO-009 yang dirancang khusus untuk menetralkannya—tapi bahkan itu tidak pernah berhasil sepenuhnya.</div>
+
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
         <ul>
-            <li><strong>Multiversal Neural Connection (Omniscience):</strong> Otak dan kesadarannya terhubung secara universal ke seluruh multiverse, membuatnya mengetahui seluruh informasi dan kejadian secara mutlak.</li>
-            <li><strong>Prekognisi 2 Hari (Precognition):</strong> Mengetahui seluruh kejadian yang akan terjadi secara pasti hingga 2 hari (48 jam) ke depan tanpa celah kesalahan.</li>
-            <li><strong>Adaptive Extinction Flame:</strong> Menyemburkan api yang secara otomatis beradaptasi menaikkan intensitasnya untuk menembus kekebalan lawan. Api ini tidak memerlukan udara dan tidak akan padam sampai target mati/tidak eksis.</li>
-            <li><strong>Pemantulan 10x Lipat (10x Reflection Amplification):</strong> Setiap serangan fisik, konsep, atau energi yang mengenai tubuhnya akan dipantulkan kembali ke penyerang dengan kekuatan 10 kali lipat secara instan.</li>
-            <li><strong>Regresi Eksistensi (Existence Regression):</strong> Mampu mengembalikan target (manusia, objek, atau materi) ke masa sebelum mereka diciptakan/dilahirkan hanya melalui niat pikiran.</li>
-            <li><strong>Manipulasi Cahaya, Kegelapan, & Api:</strong> Kontrol penuh atas spektrum cahaya, energi kegelapan, dan manipulasi elemen api skala multiversal.</li>
-            <li><strong>Regenerasi Bintang & Kehampaan (Void Regeneration):</strong> Mampu memulihkan wujud dan konsepnya secara instan bila terpapar sinar bintang, kegelapan, maupun ketiadaan (void).</li>
-            <li><strong>Hipnosis Mutlak:</strong> Mampu memanipulasi dan mengendalikan kesadaran makhluk apa pun tanpa terpengaruh tingkat ketahanan mental target.</li>
+            <li><strong>Imawri vs Goku:</strong> Imawri menang. Goku tidak bisa menembus 10x Reflection dan Adaptive Extinction Flame.</li>
+            <li><strong>Imawri vs Saitama:</strong> Imawri menang. Gag power tidak bekerja pada entitas kosmik di luar fiksi.</li>
+            <li><strong>Imawri vs Thor (Marvel):</strong> Imawri menang. Thor tidak bisa melampaui skala kosmik Imawri.</li>
+            <li><strong>Imawri vs Darkseid:</strong> Imawri menang. Darkseid masih terikat konsep "kekalahan", Imawri tidak.</li>
+            <li><strong>Imawri vs TAO-009:</strong> Hasil imbang abadi—konflik yang tidak pernah terselesaikan.</li>
         </ul>
 
-        <div class="section-title">IV. PROSEDUR PENANAHAN KHUSUS</div>
-        <p>
-            <strong>STATUS: UNCONTAINABLE (TIDAK DAPAT DIKURUNG).</strong>
-        </p>
-        <p>
-            Tidak ada teknologi atau kubah fisik yang mampu menahan TAO-002 karena keberadaannya membakar molekul udara di sekitarnya. Pengamatan hanya diperbolehkan melalui teleskop pemantau spektrum bintang jarak jauh. Personel diwajibkan menghindari kontak langsung.
-        </p>
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>UNCONTAINABLE.</strong> Pantau dari jarak jauh menggunakan teleskop spektrum bintang. Personel TAO dilarang mendekati radius 500 kilometer. Jika terlihat mendekati sektor vital, gunakan umpan asteroid untuk mengalihkan jalurnya.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
     </main>
 
-    <!-- TAB TAO-003 (THE PARALYZING RADIO) -->
+    <!-- ============================================ -->
+    <!-- TAO-003: THE PARALYZING RADIO — DETAIL      -->
+    <!-- ============================================ -->
     <main id="tao-003" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-003</span></div>
+
         <div class="badge-container">
             <span class="badge badge-tier">Class-Object</span>
             <span class="badge badge-status">Containable</span>
+            <span class="badge badge-clearance">Clearance Level 3</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
         </div>
 
-        <h1 class="anomaly-id">TAO-003: "THE PARALYZING RADIO"</h1>
-        <div class="anomaly-alias">Gelar: Echoes of Tomorrow / The Fate Transceiver</div>
+        <h1 class="anomaly-id">A-ID TAO-003: "THE PARALYZING RADIO"</h1>
+        <div class="anomaly-alias">Echoes of Tomorrow / The Fate Transceiver / Radio Kematian</div>
 
         <div class="info-grid">
-            <div class="info-item">
-                <span>Wujud Visual</span>
-                <strong>Radio Transceiver Klasik Pertengahan Abad ke-20</strong>
-            </div>
-            <div class="info-item">
-                <span>Klasifikasi</span>
-                <strong>Mental Hazard / Causality / Precognitive Sound</strong>
-            </div>
-            <div class="info-item">
-                <span>Status Penahanan</span>
-                <strong>Terkurung (Sektor-03)</strong>
-            </div>
-            <div class="info-item">
-                <span>Tingkat Ancaman</span>
-                <strong>Extreme (Psikologis & Fatal Otak)</strong>
-            </div>
+            <div class="info-item"><span>Wujud</span><strong>Radio Analog Era 1950-an</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Mental Hazard / Causality</strong></div>
+            <div class="info-item"><span>Status</span><strong>Terkurung Sektor-03</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Extreme / Neurological</strong></div>
+            <div class="info-item"><span>AP</span><strong>Mental (Brain Death)</strong></div>
+            <div class="info-item"><span>Speed</span><strong>N/A (Objek Pasif)</strong></div>
+            <div class="info-item"><span>Durability</span><strong>N/A</strong></div>
+            <div class="info-item"><span>IQ</span><strong>N/A</strong></div>
         </div>
 
-        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
-        <p>
-            TAO-003 adalah anomali berbentuk radio trans receiver tua berdesain retro/klasik. Meskipun fisiknya tampak rusak parah dan tidak terhubung ke sumber daya listrik apa pun, gelombang frekuensi analognya secara otomatis selalu memancarkan sinyal suara jernih di tengah frekuensi statis.
-        </p>
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p>TAO-003 adalah artefak anomali berupa radio receiver analog dari era 1950-an. Meskipun komponen internalnya sudah berkarat berat dan tidak terhubung ke sumber listrik apa pun, radio ini secara konsisten memancarkan siaran audio jernih di tengah derau statis. Siaran ini adalah <strong>rekaman masa depan</strong>—percakapan atau skenario yang pasti terjadi.</p>
 
-        <div class="section-title">II. KEMAMPUAN ANOMALI UTAMA</div>
+        <div class="lore-connection"><strong>🔗 ASAL:</strong> TAO-003 adalah pecahan konsep "takdir" yang hancur dalam perang primordial. Ia memancarkan gema masa depan karena ia tidak bisa membedakan antara masa lalu, sekarang, dan masa depan.</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN</div>
         <ul>
-            <li><strong>Gema Masa Depan (Echoes of Tomorrow):</strong> Memancarkan suara rekaman percakapan atau skenario nyata yang pasti terjadi di masa depan dari subjek yang berada dalam radius pendengarannya.</li>
-            <li><strong>Keputusasaan Mutlak (Absolute Despair Trigger):</strong> Jika seseorang mendengar rekaman yang membeberkan detail kepastian kematiannya sendiri atau tragedi fatal terburuk yang akan menimpanya, efek anomali akan langsung menyerang sistem saraf pusat.</li>
-            <li><strong>Henti Fungsi Otak (Brain Shutdown):</strong> Korban yang terpapar tidak mengalami luka fisik eksternal, melainkan otaknya mengalami <i>shutdown</i> permanen (koma mati otak) akibat trauma psikologis ekstrem saat menerima kepastian takdir yang tidak bisa diubah.</li>
+            <li><strong>Echoes of Tomorrow:</strong> Memancarkan siaran suara berupa rekaman percakapan atau skenario yang pasti terjadi di masa depan terhadap subjek dalam radius jangkauan audio.</li>
+            <li><strong>Absolute Despair Trigger:</strong> Jika seorang individu mendengar siaran yang merincikan kronologi kematian dirinya atau tragedi terburuk yang akan menimpanya, anomali ini memicu distorsi saraf mendadak.</li>
+            <li><strong>Brain Shutdown:</strong> Korban tidak mengalami kerusakan fisik, tetapi jaringan otaknya mengalami pemutusan fungsi total secara permanen (brain death) akibat beban trauma psikologis kausalitas.</li>
         </ul>
 
-        <div class="section-title">III. PROSEDUR PENANAHAN KHUSUS</div>
-        <p>
-            <strong>STATUS: CONTAINED (TERKURUNG).</strong>
-        </p>
-        <p>
-            TAO-003 wajib dikunci di dalam peti berlapis timbal dan kedap suara (<i>Soundproof Vault</i>) di Sektor-03. Interaksi atau pemantauan sinyal dilarang keras menggunakan telinga manusia secara langsung. Transkripsi audio hanya diperbolehkan melalui perangkat AI penerjemah otomatis berbasis teks tanpa speaker pendengar.
-        </p>
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Hanya aktif jika ada yang mendengarkan. Jika tidak ada pendengar, radio hanya memancarkan derau statis. Juga tidak berpengaruh pada entitas tanpa pikiran atau kesadaran.</div>
+
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
+        <ul>
+            <li><strong>TAO-003 vs Manusia Normal:</strong> TAO-003 menang instan (brain death).</li>
+            <li><strong>TAO-003 vs Goku:</strong> Goku mendengar siaran kematiannya → brain death? Tidak, karena Goku adalah karakter fiksi dengan "willpower" yang luar biasa. Tapi jika siaran itu merincikan kematian yang pasti, Goku tetap akan mengalami trauma berat.</li>
+            <li><strong>TAO-003 vs Robot/AI:</strong> Tidak berpengaruh. Tidak ada otak biologis.</li>
+            <li><strong>TAO-003 vs Cardall:</strong> Cardall tidak terpengaruh. Total Apathy membuatnya kebal.</li>
+        </ul>
+
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>CONTAINED.</strong> Disimpan di ruang isolasi kedap suara berlapis timbal tebal di Sektor-03. Interaksi langsung dengan pendengaran manusia dilarang keras. Pengawasan sinyal hanya diperbolehkan menggunakan penerjemah audio-ke-teks otomatis tanpa transmisi pengeras suara.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
     </main>
 
-    <!-- TAB TAO-004 (THE ECHO DOLL) -->
+    <!-- ============================================ -->
+    <!-- TAO-004: THE ECHO DOLL — DETAIL             -->
+    <!-- ============================================ -->
     <main id="tao-004" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-004</span></div>
+
         <div class="badge-container">
             <span class="badge badge-tier">Class-Entity</span>
             <span class="badge badge-status">Containable</span>
+            <span class="badge badge-clearance">Clearance Level 3</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
         </div>
 
-        <h1 class="anomaly-id">TAO-004: "THE ECHO DOLL"</h1>
-        <div class="anomaly-alias">Gelar: Puppeteer of Concepts / The Mirror Faceless</div>
+        <h1 class="anomaly-id">A-ID TAO-004: "THE ECHO DOLL"</h1>
+        <div class="anomaly-alias">Puppeteer of Concepts / The Mirror Faceless / Boneka Identitas</div>
 
         <div class="info-grid">
-            <div class="info-item">
-                <span>Wujud Visual</span>
-                <strong>Boneka Porselen Berwajah Cermin Polos</strong>
-            </div>
-            <div class="info-item">
-                <span>Klasifikasi</span>
-                <strong>Conceptual Erasure / Mimicry / Sympathetic Link</strong>
-            </div>
-            <div class="info-item">
-                <span>Status Penahanan</span>
-                <strong>Terkurung (Sektor-04)</strong>
-            </div>
-            <div class="info-item">
-                <span>Tingkat Ancaman</span>
-                <strong>Lethal / Conceptual Hazard</strong>
-            </div>
+            <div class="info-item"><span>Wujud</span><strong>Boneka Porselen Berwajah Cermin</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Conceptual Erasure / Mimicry</strong></div>
+            <div class="info-item"><span>Status</span><strong>Terkurung Sektor-04</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Lethal / Conceptual</strong></div>
+            <div class="info-item"><span>AP</span><strong>Conceptual (Durability Negation)</strong></div>
+            <div class="info-item"><span>Speed</span><strong>N/A (Objek Pasif)</strong></div>
+            <div class="info-item"><span>Durability</span><strong>N/A</strong></div>
+            <div class="info-item"><span>IQ</span><strong>N/A</strong></div>
         </div>
 
-        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
-        <p>
-            TAO-004 adalah entitas anomali berbentuk boneka porselen seukuran anak kecil. Fitur paling mencolok dari entitas ini adalah area wajahnya yang benar-benar polos tanpa organ mata, hidung, atau mulut, melainkan dilapisi permukaan halus berdaya pantul tinggi seperti cermin.
-        </p>
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p>TAO-004 adalah boneka porselen seukuran anak kecil dengan permukaan wajah yang licin tanpa organ hidung, mata, atau mulut—digantikan oleh cermin porselen berdaya reflek tinggi. Boneka ini meniru konsep target dan mengunci ikatan konseptual (sympathetic link) secara mutlak.</p>
 
-        <div class="section-title">II. KEMAMPUAN ANOMALI UTAMA</div>
+        <div class="lore-connection"><strong>🔗 ASAL:</strong> TAO-004 adalah pecahan konsep "identitas" yang hancur. Ia meniru karena ia tidak tahu siapa dirinya sendiri.</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN</div>
         <ul>
-            <li><strong>Peniruan Konsep & Wujud (Conceptual Mimicry):</strong> Saat ada entitas atau manusia mendekatinya, permukaan wajah cermin TAO-004 akan membentuk cerminan wujud dan mengunci ikatan konsep (<i>sympathetic link</i>) dengan target tersebut.</li>
-            <li><strong>Pemotongan Konsep (Conceptual Severance / Durability Negation):</strong> Setelah ikatan terbentuk, setiap kerusakan fisik atau cedera yang dialami oleh boneka ini akan langsung berdampak pada targetnya secara konseptual.</li>
-            <li><strong>Penghapusan Bagian Tanpa Rasa Sakit:</strong> Jika bagian tubuh TAO-004 dipotong atau dihancurkan, bagian tubuh target yang setara akan lenyap seketika dari realitas tanpa pendarahan atau rasa sakit—seolah-olah bagian tubuh tersebut tidak pernah diciptakan.</li>
+            <li><strong>Conceptual Mimicry:</strong> Ketika entitas hidup mendekati radius pantulannya, cermin wajah boneka merefleksikan wujud target dan mengunci ikatan konseptual secara mutlak.</li>
+            <li><strong>Conceptual Severance:</strong> Setelah ikatan terjalin, segala trauma fisik atau perusakan pada boneka akan ditransfer secara konseptual ke tubuh target secara langsung.</li>
+            <li><strong>Existence Removal:</strong> Jika bagian organ boneka dipotong atau dihancurkan, organ tubuh target yang selaras akan lenyap dari realitas tanpa pendarahan, tanpa luka, tanpa penderitaan—seolah-olah tidak pernah ada.</li>
         </ul>
 
-        <div class="section-title">III. PROSEDUR PENANAHAN KHUSUS</div>
-        <p>
-            <strong>STATUS: CONTAINED (TERKURUNG).</strong>
-        </p>
-        <p>
-            TAO-004 harus diletakkan di dalam ruang tertutup tanpa cermin dan diselimuti kain khusus penyerap pantulan. Seluruh personel yang memasuki ruang penahanan wajib menggunakan kacamata pembias pantulan (<i>anti-reflective visors</i>). Dilarang keras merusak fisik TAO-004 saat entitas ini terikat dengan personel di sekitarnya.
-        </p>
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Tidak aktif jika tidak ada yang melihat atau mendekatinya. Hanya bekerja pada makhluk hidup yang memiliki "identitas" yang bisa ditiru. Tidak berpengaruh pada objek mati atau entitas tanpa konsep diri.</div>
+
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
+        <ul>
+            <li><strong>TAO-004 vs Manusia:</strong> TAO-004 menang. Potong tangan boneka → tangan manusia hilang.</li>
+            <li><strong>TAO-004 vs Goku:</strong> Goku mendekati boneka → ikatan terbentuk. Jika boneka dihancurkan, Goku ikut hancur secara konseptual.</li>
+            <li><strong>TAO-004 vs Saitama:</strong> Saitama mendekati boneka → ikatan terbentuk. Tapi Saitama mungkin bisa menghancurkan boneka sebelum ikatan sempurna.</li>
+            <li><strong>TAO-004 vs Cardall:</strong> Cardall tidak terpengaruh. Ia melampaui konsep "identitas".</li>
+        </ul>
+
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>CONTAINED.</strong> Disimpan di Vault terisolasi tanpa cermin di Sektor-04, selalu diselimuti kain penyerap pantulan cahaya. Personel yang masuk wajib mengenakan kacamata pembias refleksi (anti-reflective visors). Dilarang keras merusak fisik TAO-004.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
     </main>
 
-    <!-- TAB TAO-005 (THE LIVING PAINTING) -->
+    <!-- ============================================ -->
+    <!-- TAO-005: THE LIVING PAINTING — DETAIL       -->
+    <!-- ============================================ -->
     <main id="tao-005" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-005</span></div>
+
         <div class="badge-container">
-            <span class="badge badge-tier">Class-Object / Dimensional Hazard</span>
+            <span class="badge badge-tier">Class-Object / Dimensional</span>
             <span class="badge badge-status">Containable</span>
+            <span class="badge badge-clearance">Clearance Level 3</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
         </div>
 
-        <h1 class="anomaly-id">TAO-005: "THE LIVING PAINTING"</h1>
-        <div class="anomaly-alias">Gelar: Canvas of Erasure / The Frozen Horizon</div>
+        <h1 class="anomaly-id">A-ID TAO-005: "THE LIVING PAINTING"</h1>
+        <div class="anomaly-alias">Canvas of Erasure / The Frozen Horizon / Lukisan Penjara Dimensi</div>
 
         <div class="info-grid">
-            <div class="info-item">
-                <span>Wujud Visual</span>
-                <strong>Lukisan Minyak Pemandangan Era Renaissance</strong>
-            </div>
-            <div class="info-item">
-                <span>Klasifikasi</span>
-                <strong>Spatial Hazard / Dimensional Trap / Mind Trapper</strong>
-            </div>
-            <div class="info-item">
-                <span>Status Penahanan</span>
-                <strong>Terkurung (Sektor-05)</strong>
-            </div>
-            <div class="info-item">
-                <span>Tingkat Ancaman</span>
-                <strong>High / Spatial Hazard</strong>
-            </div>
-            <div class="info-item">
-                <span>Attack Potency</span>
-                <strong>Spatial Bisection / Existence Erasure (Melalui Perangkap Lukisan)</strong>
-            </div>
-            <div class="info-item">
-                <span>Speed</span>
-                <strong>Immobile (Objek Pasif dengan Aktivasi Instan 5 Detik)</strong>
-            </div>
-            <div class="info-item">
-                <span>Durability</span>
-                <strong>Indestructible / Unbreakable Canvas & Frame</strong>
-            </div>
-            <div class="info-item">
-                <span>IQ & Intellect</span>
-                <strong>Nigh-Mindless (Objek Murni)</strong>
-            </div>
+            <div class="info-item"><span>Wujud</span><strong>Lukisan Minyak Lanskap Renaissance (120x80 cm)</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Spatial Trap / Dimensional Hazard</strong></div>
+            <div class="info-item"><span>Status</span><strong>Terkurung Sektor-05</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>High / Spatial</strong></div>
+            <div class="info-item"><span>AP</span><strong>Spatial Bisection</strong></div>
+            <div class="info-item"><span>Speed</span><strong>Immobile (5 detik aktivasi)</strong></div>
+            <div class="info-item"><span>Durability</span><strong>Indestructible</strong></div>
+            <div class="info-item"><span>IQ</span><strong>N/A</strong></div>
         </div>
 
-        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
-        <p>
-            TAO-005 adalah sebuah lukisan minyak berukuran 120x80 cm dengan bingkai kayu ukir kuno yang tidak dapat dihancurkan, dibakar, atau dipotong. Lukisan ini menggambarkan pemandangan lanskap kastil tua abad pertengahan yang sangat detail, lengkap dengan figur-figur kecil seperti prajurit, penduduk lokal, dan hewan liar di latarnya.
-        </p>
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p>TAO-005 adalah lukisan minyak dengan bingkai kayu ukir kuno yang tidak bisa dihancurkan oleh metode materi apa pun. Lukisan ini menampilkan lanskap kastil abad pertengahan yang sangat detail dengan figur-figur miniatur. Siapa pun yang menatapnya lebih dari 5 detik akan terserap ke dalam dimensi kanvas dan menjadi ilustrasi latar baru—tetap sadar tetapi tidak bisa bergerak.</p>
 
-        <div class="section-title">II. KEMAMPUAN ANOMALI UTAMA (SPECIAL HAX & ABILITIES)</div>
+        <div class="lore-connection"><strong>🔗 ASAL:</strong> TAO-005 adalah pecahan konsep "ruang" yang hancur. Ia tidak bisa membedakan antara "di dalam" dan "di luar".</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN</div>
         <ul>
-            <li><strong>Penyerapan Visual (Visual Absorption):</strong> Siapa pun yang menatap canvas lukisan ini secara langsung selama lebih dari 5 detik berturut-turut akan kehilangan kesadaran fisik. Tubuh dan jiwa korban akan langsung tertarik masuk ke dalam lukisan.</li>
-            <li><strong>Penghapusan Realitas Fisik (Physical Erasure):</strong> Tubuh korban di dunia nyata akan lenyap secara permanen tanpa meninggalkan jejak molekuler atau residu materi sama sekali.</li>
-            <li><strong>Realitas Statis Permanen (Static Trapping):</strong> Di dalam lukisan, korban terperangkap menjadi salah satu figur latar belakang baru (seperti prajurit kastil atau warga desa). Korban tetap sadar penuh secara mental, namun tubuhnya terkunci secara fisik dalam pose lukisan selamanya tanpa bisa bergerak atau bersuara.</li>
-            <li><strong>Indestructibility:</strong> Bingkai kayu dan kanvas lukisan kebal terhadap segala bentuk perusakan fisik, pemotongan, maupun pembakaran.</li>
+            <li><strong>Visual Absorption:</strong> Subjek yang menatap kanvas >5 detik kehilangan kesadaran fisik dan terserap ke dalam dimensi lukisan.</li>
+            <li><strong>Physical Erasure:</strong> Tubuh fisik korban di dunia nyata terurai total tanpa jejak DNA atau materi.</li>
+            <li><strong>Static Trapping:</strong> Di dalam kanvas, korban terperangkap menjadi ilustrasi latar—kesadaran utuh, tubuh terkunci selamanya.</li>
+            <li><strong>Indestructibility:</strong> Bingkai dan kanvas kebal terhadap pemotong plasma, ledakan nuklir, atau perusakan konseptual.</li>
         </ul>
 
-        <div class="section-title">III. PROSEDUR PENANAHAN KHUSUS</div>
-        <p>
-            <strong>STATUS: CONTAINED (TERKURUNG).</strong>
-        </p>
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Tidak aktif jika tidak ada yang melihatnya. Hanya menyerap makhluk hidup—tidak berpengaruh pada benda mati atau entitas tanpa kesadaran visual.</div>
 
-        <p>
-            TAO-005 wajib disimpan di Sektor-05 dan selalu ditutup rapat menggunakan penutup kain serat baja tebal. Pengamatan visual langsung oleh manusia dilarang keras. Pemantauan ruang penahanan hanya diperbolehkan melalui sensor inframerah atau kamera termal tanpa keterlibatan pandangan mata manusia secara langsung.
-        </p>
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
+        <ul>
+            <li><strong>TAO-005 vs Manusia:</strong> TAO-005 menang. Manusia terserap dalam 5 detik.</li>
+            <li><strong>TAO-005 vs Goku:</strong> Goku menatap lukisan → terserap? Mungkin tidak, karena Goku bisa bergerak lebih cepat dari 5 detik dan menghancurkan lukisan? Tapi lukisan indestructible.</li>
+            <li><strong>TAO-005 vs Saitama:</strong> Saitama mungkin bisa menghancurkan lukisan meskipun indestructible? Tapi secara konsep, lukisan tidak bisa dihancurkan.</li>
+            <li><strong>TAO-005 vs Cardall:</strong> Cardall tidak terpengaruh. Ia melampaui konsep "ruang".</li>
+        </ul>
+
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>CONTAINED.</strong> Disimpan di Vault Sektor-05, selalu tertutup tirai serat baja tebal. Pemantauan visual langsung dilarang. Hanya kamera termal/inframerah otomatis yang diizinkan.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
     </main>
 
-    <!-- TAB TAO-006 (THE BROKEN WATCHMAKER) -->
+    <!-- ============================================ -->
+    <!-- TAO-006: THE BROKEN WATCHMAKER — DETAIL     -->
+    <!-- ============================================ -->
     <main id="tao-006" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-006</span></div>
+
         <div class="badge-container">
             <span class="badge badge-tier">Class-Entity</span>
             <span class="badge badge-status">Containable</span>
+            <span class="badge badge-clearance">Clearance Level 3</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
         </div>
 
-        <h1 class="anomaly-id">TAO-006: "THE BROKEN WATCHMAKER"</h1>
-        <div class="anomaly-alias">Gelar: Chronos Parasite / The Time Devourer</div>
+        <h1 class="anomaly-id">A-ID TAO-006: "THE BROKEN WATCHMAKER"</h1>
+        <div class="anomaly-alias">Chronos Parasite / The Time Devourer / Parasit Waktu</div>
 
         <div class="info-grid">
-            <div class="info-item">
-                <span>Wujud Visual</span>
-                <strong>Humanoid Berjas Hitam dengan Wajah Roda Jam</strong>
-            </div>
-            <div class="info-item">
-                <span>Klasifikasi</span>
-                <strong>Time Warper / Temporal Hazard / Chrono Manipulator</strong>
-            </div>
-            <div class="info-item">
-                <span>Status Penahanan</span>
-                <strong>Terkurung (Sektor-06)</strong>
-            </div>
-            <div class="info-item">
-                <span>Tingkat Ancaman</span>
-                <strong>Extreme / Temporal Extinction</strong>
-            </div>
+            <div class="info-item"><span>Wujud</span><strong>Humanoid Berjas Hitam, Muka Roda Gigi</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Time Warper / Chrono Manipulator</strong></div>
+            <div class="info-item"><span>Status</span><strong>Terkurung Sektor-06</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Extreme / Temporal</strong></div>
+            <div class="info-item"><span>AP</span><strong>Temporal (Aging)</strong></div>
+            <div class="info-item"><span>Speed</span><strong>Normal</strong></div>
+            <div class="info-item"><span>Durability</span><strong>Normal (dengan Time Rewind)</strong></div>
+            <div class="info-item"><span>IQ</span><strong>Genius</strong></div>
         </div>
 
-        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
-        <p>
-            TAO-006 adalah entitas humanoid berwujud pria tua kurus yang mengenakan setelan jas hitam lusuh abad ke-19. Seluruh struktur wajahnya tidak memiliki organ biologis, melainkan dipenuhi oleh puluhan roda gigi jam mekanis (<i>clockwork gears</i>) dan jarum arloji kuno yang berputar konstan dengan suara derik mekanis.
-        </p>
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p>TAO-006 adalah entitas humanoid berwujud pria tua kurus dengan setelan jas hitam gaya abad ke-19. Wajahnya adalah susunan roda gigi jam mekanis dan jarum arloji kuno yang berputar konstan, memancarkan detak suara mekanis keras. Ia mencuri waktu biologis dari makhluk di sekitarnya—setiap 1 detik di dekatnya = 1 tahun penuaan instan.</p>
 
-        <div class="section-title">II. KEMAMPUAN ANOMALI UTAMA</div>
+        <div class="lore-connection"><strong>🔗 ASAL:</strong> TAO-006 adalah pecahan konsep "waktu" yang hancur. Ia tidak bisa membedakan antara "cepat" dan "lambat".</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN</div>
         <ul>
-            <li><strong>Pencurian Waktu Lokal (Local Time Theft):</strong> TAO-006 memanipulasi dan memakan arus waktu hidup makhluk di sekitarnya. Setiap berada dalam radius 10 meter dari entitas ini, waktu biologis target terdistorsi secara ekstrem.</li>
-            <li><strong>Penuaan Instan (Instant Biological Aging):</strong> Setiap 1 detik terpapar di dekat TAO-006, tubuh target akan mengalami penuaan fisik selama 1 tahun secara instan. Dalam waktu 10 hingga 20 detik, seorang manusia sehat akan membusuk dan hancur menjadi debu.</li>
-            <li><strong>Pemutarbalikan Waktu Mandiri (Temporal Rewind Self):</strong> Jika menerima serangan fisik atau peluru, roda gigi di wajahnya akan berputar berlawanan arah jam, mengembalikan kondisi fisik dan posisi tubuhnya (<i>time rewind</i>) ke kondisi beberapa detik sebelum serangan terjadi.</li>
+            <li><strong>Local Time Theft:</strong> Menyerap arus waktu biologis dari organisme di sekitarnya. Radius 10 meter menyebabkan lonjakan percepatan waktu.</li>
+            <li><strong>Instant Biological Aging:</strong> Setiap 1 detik di dekatnya = 1 tahun penuaan. Dalam 10-20 detik, manusia dewasa membusuk dan hancur menjadi debu.</li>
+            <li><strong>Temporal Rewind Self:</strong> Saat menerima serangan, roda gigi di wajahnya berputar berlawanan arah, memutar balik kondisi fisiknya ke status sebelum serangan.</li>
         </ul>
 
-        <div class="section-title">III. PROSEDUR PENANAHAN KHUSUS</div>
-        <p>
-            <strong>STATUS: CONTAINED (TERKURUNG).</strong>
-        </p>
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Hanya menua makhluk biologis. Tidak berpengaruh pada robot, AI, atau entitas tanpa usia biologis. Juga tidak bisa mencuri waktu dari entitas yang melampaui konsep waktu (seperti Cardall).</div>
 
-        <p>
-            TAO-006 dikurung di Sektor-06 dalam sel hampa udara berlapis kedap suara dan dipasangi generator medan magnetik temporal untuk memperlambat arus waktu lokal di dalam sel. Interaksi fisik langsung dilarang; pemeliharaan hanya diperbolehkan menggunakan unit robotik otomatis yang tidak memiliki sel biologis.
-        </p>
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
+        <ul>
+            <li><strong>TAO-006 vs Manusia:</strong> TAO-006 menang dalam 10 detik.</li>
+            <li><strong>TAO-006 vs Goku:</strong> Goku adalah makhluk biologis → akan menua. Tapi Goku bisa bergerak sangat cepat dan menyerang dari jarak jauh.</li>
+            <li><strong>TAO-006 vs Saitama:</strong> Saitama adalah manusia → akan menua. Tapi Saitama bisa one punch sebelum efek aging bekerja?</li>
+            <li><strong>TAO-006 vs Cardall:</strong> Cardall tidak terpengaruh. Ia melampaui konsep "waktu".</li>
+        </ul>
+
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>CONTAINED.</strong> Diisolasi di Sektor-06 dalam sel hampa udara kedap suara dengan generator medan magnetik temporal untuk memperlambat arus waktu lokal. Hanya drone robotik yang boleh masuk.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
     </main>
 
-    <!-- TAB TAO-007 (GORGOROTH) -->
+    <!-- ============================================ -->
+    <!-- TAO-007: GORGOROTH — DETAIL                 -->
+    <!-- ============================================ -->
     <main id="tao-007" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-007</span></div>
+
         <div class="badge-container">
             <span class="badge badge-tier">Tier 1-A: High Hyperverse</span>
-            <span class="badge badge-status">Uncontainable / Wandering Apex</span>
+            <span class="badge badge-status">Uncontainable</span>
+            <span class="badge badge-clearance">Clearance Level 4</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
         </div>
 
-        <h1 class="anomaly-id">TAO-007: "GORGOROTH"</h1>
-        <div class="anomaly-alias">Gelar: The Abyssal Earth-Eater / Titan of Gravitational Ruin</div>
+        <h1 class="anomaly-id">A-ID TAO-007: "GORGOROTH"</h1>
+        <div class="anomaly-alias">Abyssal Earth-Eater / Titan of Gravitational Ruin / Pemakan Planet</div>
 
         <div class="info-grid">
-            <div class="info-item">
-                <span>Wujud Visual</span>
-                <strong>Monster Raksasa Abyssal (Behemoth Quadrupedal)</strong>
-            </div>
-            <div class="info-item">
-                <span>Klasifikasi</span>
-                <strong>Abyssal Titan / Gravity Manipulator / Anti-Energy Apex</strong>
-            </div>
-            <div class="info-item">
-                <span>Status Penahanan</span>
-                <strong>Tidak Dapat Dikurung (Bebas di Sektor-99)</strong>
-            </div>
-            <div class="info-item">
-                <span>Tingkat Ancaman</span>
-                <strong>Planetary Crushing / Dimensional Collapse</strong>
-            </div>
+            <div class="info-item"><span>Wujud</span><strong>Behemoth Quadrupedal >400 Meter</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Abyssal Titan / Gravity Manipulator</strong></div>
+            <div class="info-item"><span>Status</span><strong>Bebas Sektor-99</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Planetary Crushing</strong></div>
+            <div class="info-item"><span>AP</span><strong>High Hyperversal</strong></div>
+            <div class="info-item"><span>Speed</span><strong>Immeasurable</strong></div>
+            <div class="info-item"><span>Durability</span><strong>Invulnerable</strong></div>
+            <div class="info-item"><span>IQ</span><strong>Beastial (Naluri)</strong></div>
         </div>
 
-        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
-        <p>
-            TAO-007 ("Gorgoroth") adalah monster raksasa quadrupedal setinggi lebih dari 400 meter dengan tempurung berlapis obsidian abisal super-padat yang mampu menahan tekanan inti bintang. Entitas ini berkeliaran di zona samudra terisolasi Sektor-99 di planet TAO. Diciptakan dari tumpukan gravitasi murni dan energi anti-materi, Gorgoroth dirancang sebagai benteng berjalan yang tidak bisa ditembus oleh serangan energi maupun manipulasi hukum fisika biasa.
-        </p>
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p>Gorgoroth adalah behemoth quadrupedal dengan cangkang obsidian abisal berkerapatan ekstrem yang mampu menahan kompresi inti bintang. Ia berkeliaran bebas di Sektor-99. Terbentuk dari distorsi gravitasi murni dan padatan anti-materi, Gorgoroth adalah benteng berjalan yang tidak bisa ditembus oleh sihir, energi, atau hukum fisika konvensional.</p>
 
-        <div class="section-title">II. PROFIL ATRIBUT STATISTIK DEBATE (DB READY)</div>
+        <div class="lore-connection"><strong>🔗 HUBUNGAN:</strong> Gorgoroth adalah anggota Dewan Penjaga Realitas, memegang aspek stabilitas fisik. Ia menjaga agar realitas fisik tidak runtuh.</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN</div>
         <ul>
-            <li><strong>Strengths / Attack Potency (High Hyperversal):</strong> Setiap pijakan atau gigitannya dapat meremukkan struktur kontinuitas ruang-waktu seluas sistem tata surya secara langsung. Menghasilkan tekanan gravitasi bernilai jutaan G.</li>
-            <li><strong>Speed (Immeasurable/Irrelevant):</strong> Mampu melintasi jarak antardimensi dan melompati garis waktu hanya dengan menggunakan tolakan gravitasi inti tubuhnya.</li>
-            <li><strong>Durability (Invulnerable / Anti-Energy Coating):</strong> Sisik obsidiannya memiliki ketahanan konseptual sejati. Memantulkan 99% serangan energi, sihir, atau pemanipulasian realitas kembali ke sumbernya.</li>
-            <li><strong>Stamina & Endurance (Infinite):</strong> Tidak memiliki organ seluler yang membutuhkan metabolisme biologis. Mengonsumsi massa gravitasi di sekitarnya secara konstan.</li>
+            <li><strong>Aura Muted Energy:</strong> Memancarkan medan pasif radius 100 km yang mematikan semua jenis energi, mana sihir, teknologi, dan manipulasi molekuler.</li>
+            <li><strong>Gravitational Black Hole:</strong> Mengakselerasi rongga di dadanya untuk menciptakan lubang hitam abisal yang menyerap materi, jiwa, konsep, dan sejarah waktu hingga titik nol.</li>
+            <li><strong>Conceptual Degradation:</strong> Tatapan atau raungannya merusak sel dan membongkar kerangka konseptual musuh dalam milidetik (Durability Negation Total).</li>
+            <li><strong>Adapto-Density Armor:</strong> Jika menerima serangan baru yang berhasil melukainya, armor obsidiannya bertransformasi menjadi 100% kebal terhadap tipe serangan itu secara permanen.</li>
         </ul>
 
-        <div class="section-title">III. KEMAMPUAN ANOMALI UTAMA</div>
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Tidak bisa dikendalikan atau diarahkan. Bergerak berdasarkan naluri. Tidak memiliki kecerdasan strategis—hanya insting menghancurkan.</div>
+
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
         <ul>
-            <li><strong>Anti-Energy & Magic Nullification Aura:</strong> Memancarkan medan pasif radius 100 km yang mematikan seluruh bentuk energi, mana, sihir, teknologi, atau kekuasaan manipulasi molekuler musuh secara instan.</li>
-            <li><strong>Singularity Collapse (Gravitational Black Hole):</strong> Membuka rongga di dada untuk menciptakan lubang hitam abisal yang menyerap materi, jiwa, konsep, serta garis waktu target hingga hancur ke level nol.</li>
-            <li><strong>Cellular & Conceptual Degradation:</strong> Tatapan atau raungan akustik Gorgoroth memicu pembusukan seluler dan pembongkaran susunan konseptual target dalam hitungan milidetik (Durability Negation).</li>
-            <li><strong>Adapto-Density Armor:</strong> Setiap kali terkena jenis serangan baru yang berhasil melukainya, struktur kulitnya merekayasa ketebalannya secara instan untuk menjadi 100% kebal terhadap jenis serangan tersebut secara permanen.</li>
+            <li><strong>Gorgoroth vs Godzilla:</strong> Gorgoroth menang. Skala dan kekuatan jauh di atas Godzilla.</li>
+            <li><strong>Gorgoroth vs Galactus:</strong> Gorgoroth vs Galactus — imbang? Galactus adalah konsep kosmik, Gorgoroth adalah penjaga stabilitas fisik.</li>
+            <li><strong>Gorgoroth vs Cthulhu:</strong> Gorgoroth menang. Cthulhu masih terikat mimpi dan realitas fisik.</li>
+            <li><strong>Gorgoroth vs Cardall:</strong> Cardall menang instan. Cardall melampaui semua konsep.</li>
         </ul>
 
-        <div class="section-title">IV. PROSEDUR PENANAHAN KHUSUS</div>
-        <p>
-            <strong>STATUS: UNCONTAINABLE (TIDAK DAPAT DIKURUNG).</strong>
-        </p>
-        <p>
-            Tidak ada fasilitas atau dinding batas yang sanggup menahan gaya gravitasi Gorgoroth. Penanganan dilakukan melalui **Prosedur Pengalihan Rute** menggunakan umpan massa asteorid bertekanan tinggi untuk menjauhkannya dari fasilitas utama TAO.
-        </p>
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>UNCONTAINABLE.</strong> Tidak ada benteng fisik yang bisa menahan radiasi gravitasinya. Penanganan terbatas menggunakan Prosedur Pengalihan Vektor—umpan massa asteroid bertekanan tinggi untuk menjauhkannya dari sektor vital.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
     </main>
 
-    <!-- TAB TAO-008 (VAELIS) -->
+    <!-- ============================================ -->
+    <!-- TAO-008: VAELIS — DETAIL                    -->
+    <!-- ============================================ -->
     <main id="tao-008" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-008</span></div>
+
         <div class="badge-container">
-            <span class="badge badge-tier">Tier 1-A: Outerverse / High Outer</span>
-            <span class="badge badge-status">Active Free Humanoid</span>
+            <span class="badge badge-tier">Tier 1-A: Outerverse</span>
+            <span class="badge badge-status">Active Free</span>
+            <span class="badge badge-clearance">Clearance Level 4</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
         </div>
 
-        <h1 class="anomaly-id">TAO-008: "VAELIS"</h1>
-        <div class="anomaly-alias">Gelar: The Sovereign of Void / Knight of Absolute Erasure</div>
+        <h1 class="anomaly-id">A-ID TAO-008: "VAELIS"</h1>
+        <div class="anomaly-alias">Sovereign of Void / Knight of Absolute Erasure / Penebas Konsep</div>
 
         <div class="info-grid">
-            <div class="info-item">
-                <span>Wujud Visual</span>
-                <strong>Humanoid Berzirah Perak Gelap Tanpa Wajah</strong>
-            </div>
-            <div class="info-item">
-                <span>Klasifikasi</span>
-                <strong>Spatial Bisection / Void Warper / Causality Eraser</strong>
-            </div>
-            <div class="info-item">
-                <span>Status Penahanan</span>
-                <strong>Tidak Dapat Dikurung / Bekerja Secara Independen</strong>
-            </div>
-            <div class="info-item">
-                <span>Tingkat Ancaman</span>
-                <strong>Multiversal Severance / Reality Erasure</strong>
-            </div>
+            <div class="info-item"><span>Wujud</span><strong>Humanoid Berzirah Perak Gelap (2.1m)</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Spatial Bisection / Causality Eraser</strong></div>
+            <div class="info-item"><span>Status</span><strong>Independen Lapangan</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Multiversal Severance</strong></div>
+            <div class="info-item"><span>AP</span><strong>Outerversal</strong></div>
+            <div class="info-item"><span>Speed</span><strong>Irrelevant</strong></div>
+            <div class="info-item"><span>Durability</span><strong>Conceptual Immutability</strong></div>
+            <div class="info-item"><span>IQ</span><strong>Nigh-Omniscient</strong></div>
         </div>
 
-        <div class="section-title">I. RINGKASAN EKSEKUTIF</div>
-        <p>
-            TAO-008 ("Vaelis") adalah entitas berwujud humanoid dengan tinggi 2,1 meter, mengenakan zirah pelat perak-gelap yang terbuat dari materi ruang hampa terpadat (*Condensed Void Matter*). Area helmnya tidak memiliki mata, hidung, atau mulut, melainkan hanya retakan cahaya kosmik berwarna biru kehampaian. Vaelis adalah eksekutor tingkat tinggi yang bertindak bebas di luar pengaruh takdir dan hukum kausalitas.
-        </p>
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p>Vaelis adalah eksekutor independen dengan zirah perak-gelap dari materi ketiadaan (Condensed Void Matter). Helmnya polos tanpa mata atau mulut, hanya retakan radiasi kosmik biru kehampaan. Ia bergerak di luar garis takdir dan hukum kausalitas. Tebasan pedangnya tidak memotong materi fisik—ia membelah konsep, dimensi, dan status keberadaan target dari realitas.</p>
 
-        <div class="section-title">II. PROFIL ATRIBUT STATISTIK DEBATE (DB READY)</div>
+        <div class="lore-connection"><strong>🔗 HUBUNGAN:</strong> Vaelis adalah anggota Dewan Penjaga Realitas, memegang aspek ketiadaan. Ia menghapus apa yang seharusnya tidak ada.</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN</div>
         <ul>
-            <li><strong>Strengths / Attack Potency (Outerversal):</strong> Tebasan pedangnya tidak menyerang materi fisik, melainkan memotong kerangka konsep, dimensi, dan keberadaan target dari sistem realitas.</li>
-            <li><strong>Speed (Irrelevant / Inaccessible):</strong> Bergerak di luar konsep jarak dan waktu. Mampu memotong target sebelum niat untuk menyerang muncul dalam pikiran target.</li>
-            <li><strong>Durability (Conceptual Immutability):</strong> Tubuhnya tidak memiliki massa fisik atau titik balik kerusakan. Tidak bisa dihancurkan oleh manipulasi atom, penghapusan konsep, maupun serangan pembalik takdir.</li>
-            <li><strong>Combat Intelligence (Nigh-Omniscient Tactics):</strong> Mampu mengidentifikasi seluruh celah, kelemahan, serta kebal hukum musuh secara instan begitu pertempuran dimulai.</li>
+            <li><strong>Spatial & Conceptual Bisection (Null-Blade):</strong> Pedang konseptual yang menebas dimensi, pertahanan absolut, regenerasi, dan konsep keabadian.</li>
+            <li><strong>Causality Denial:</strong> Menghapus hukum sebab-akibat pada dirinya. Semua serangan padanya tidak menghasilkan dampak apa pun.</li>
+            <li><strong>Void Constant Regeneration:</strong> Jika wujudnya dihapus ke dalam ketiadaan, ia terkonfigurasi ulang secara otomatis dari ruang void dalam 0 detik.</li>
+            <li><strong>Dimensional Slipstream:</strong> Melangkah menembus batas antar-realitas, menghapus jejak eksistensinya dari ingatan dan catatan sejarah musuh.</li>
         </ul>
 
-        <div class="section-title">III. KEMAMPUAN ANOMALI UTAMA</div>
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Non-agresif kecuali diprovokasi. Jika tidak diserang, ia tidak akan menyerang. Tidak memiliki ambisi atau tujuan selain "menghapus yang tidak boleh ada".</div>
+
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
         <ul>
-            <li><strong>Spatial & Conceptual Bisection (Absolute Cut):</strong> Memegang pedang konseptual *Null-Blade*. Tebasannya membelah dimensi, pertahanan absolut (Invulnerability Negation), regenerasi, serta konsep keabadian target.</li>
-            <li><strong>Absolute Cause Nullification (Causality Denial):</strong> Vaelis secara permanen menghapus hukum "Sebab-Akibat" pada dirinya. Semua tindakan, serangan, atau manipulasi yang diniatkan musuh padanya tidak akan pernah menghasilkan akibat/dampak apapun.</li>
-            <li><strong>Void Constant Regeneration:</strong> Apabila wujud fisiknya dihapus atau dilempar ke dalam ketiadaan (*non-existence*), Vaelis akan memanifestasikan kembali zirah dan pedangnya secara otomatis dari ruang void dalam selang waktu 0 detik.</li>
-            <li><strong>Dimensional Slipstream:</strong> Mampu melangkah menembus perbatasan antar-realitas, menghapus jejak eksistensinya dari ingatan dan sejarah musuh saat bertarung.</li>
+            <li><strong>Vaelis vs Goku:</strong> Vaelis menang. Null-Blade menebas konsep Goku.</li>
+            <li><strong>Vaelis vs Saitama:</strong> Vaelis menang. Saitama tidak bisa melawan penghapusan konsep.</li>
+            <li><strong>Vaelis vs Darkseid:</strong> Vaelis menang. Darkseid masih terikat konsep "kekalahan".</li>
+            <li><strong>Vaelis vs Cardall:</strong> Cardall menang. Cardall melampaui konsep "penghapusan".</li>
         </ul>
 
-        <div class="section-title">IV. PROSEDUR PENANAHAN KHUSUS</div>
-        <p>
-            <strong>STATUS: UNCONTAINABLE / NON-AGGRESSIVE UNLESS PROVOKED.</strong>
-        </p>
-        <p>
-            Vaelis tidak dapat ditahan oleh kubah atau ruang tertutup apa pun karena ia dapat berjalan menembus celah antar-dimensi. Seluruh personel TAO dilarang menarik senjata atau menunjukkan niat bermusuhan apabila berpapasan dengan TAO-008 di lapangan.
-        </p>
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>UNCONTAINABLE.</strong> Tidak bisa dikurung karena kemampuannya berjalan menembus dimensi. Personel TAO dilarang menarik senjata atau menunjukkan sikap bermusuhan jika berpapasan dengannya.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
     </main>
 
-    <!-- TAB FITUR: ATURAN & FORMULIR PENGAJUAN -->
-    <main id="rules-submit" class="anomaly-card tab-content">
+    <!-- ============================================ -->
+    <!-- TAO-009: THE UNDETECTABLE PROTOTYPE — DETAIL-->
+    <!-- ============================================ -->
+    <main id="tao-009" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-009</span></div>
+
         <div class="badge-container">
-            <span class="badge badge-tier">Community Submission Portal</span>
-            <span class="badge badge-status">Clearance Level 2 Required</span>
+            <span class="badge badge-tier">Tier 0: Boundless</span>
+            <span class="badge badge-status">Uncontainable</span>
+            <span class="badge badge-clearance">Clearance Level 5</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
         </div>
 
-        <h1 class="anomaly-id">PEDOMAN & FORMULIR PENGAJUAN ANOMALI</h1>
-        <div class="anomaly-alias">Standar Kewajiban & Aturan Pendaftaran Anomali Baru ke Database TAO</div>
+        <h1 class="anomaly-id">A-ID TAO-009: "THE UNDETECTABLE PROTOTYPE"</h1>
+        <div class="anomaly-alias">Flawless Failed Product / Anti-Imawri Unit / Pemburu Tak Terlihat</div>
 
-        <div class="section-title">I. ATURAN & KEWAJIBAN PENGAJUAN (MUST READ)</div>
-        <p>Sebelum mengirimkan ide anomali, setiap pengaju diwajibkan memahami standar regulasi Organisasi TAO berikut:</p>
+        <div class="info-grid">
+            <div class="info-item"><span>Wujud</span><strong>Humanoid Sempurna</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Anti-Cosmic / Imperceptible</strong></div>
+            <div class="info-item"><span>Status</span><strong>Undetectable</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Undefined (Anti-TAO-002)</strong></div>
+            <div class="info-item"><span>AP</span><strong>Boundless (Anti-Stellar)</strong></div>
+            <div class="info-item"><span>Speed</span><strong>Irrelevant</strong></div>
+            <div class="info-item"><span>Durability</span><strong>Absolute Boundless</strong></div>
+            <div class="info-item"><span>IQ</span><strong>Single-Purpose Boundless</strong></div>
+        </div>
+
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p>TAO-009 diciptakan melalui proyek rekayasa rahasia oleh Peneliti Tingkat Tinggi TAO dengan satu fungsi: menetralkan dan mengurung TAO-002 (Imawri). Namun, laboratoriumnya diserang oleh Imawri sebelum pemrograman kontrol selesai, menjadikannya "produk gagal tetapi sempurna." Ia lepas dari kontrol TAO, tetapi mempertahankan tujuan konseptualnya: mengejar, menahan, dan menyegel Imawri secara permanen.</p>
+
+        <div class="lore-connection"><strong>🔗 ASAL:</strong> Percobaan manusia untuk meniru kekuatan dewa. Gagal tetapi menjadi sempurna. Fokus tunggal: memburu Imawri.</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN</div>
         <ul>
-            <li><strong>No Jokes / Meme Anomaly:</strong> Ide tidak boleh berupa lelucon/shitpost tanpa lore yang serious. Semua anomali harus ditulis secara rasional dalam standar fiksi TAO.</li>
-            <li><strong>No Plagiarism:</strong> Dilarang keras menjiplak penuh karakter dari SCP, anime, game, atau karya orang lain. Inspirasi diperbolehkan, namun konsep harus memiliki keunikan tersendiri.</li>
-            <li><strong>Wajib Lengkap (No Missing Stats):</strong> Pengajuan yang tidak menyertakan stats battle (AP, Speed, Hax, IQ) atau Prosedur Penahanan akan otomatis **DITOLAK** oleh Admin.</li>
-            <li><strong>Consistency & Debate Logic:</strong> Jika membuat anomali tingkat tinggi (Tier Outer/Boundless), jelaskan logika konseptual kekuatannya secara masuk akal tanpa kontradiksi.</li>
-            <li><strong>Otoritas Admin:</strong> Admin berhak sepenuhnya menyetujui (ACC) atau menolak (Reject) pengajuan yang masuk ke direktori pendaftaran.</li>
+            <li><strong>Anti-Imawri Absolute Suppression:</strong> Didesain untuk membatalkan semua kemampuan Imawri—meredam Adaptive Extinction Flame, membatalkan Existence Regression, dan menembus 10x Reflection.</li>
+            <li><strong>Total Stealth Transcendence:</strong> Eksis di celah persepsi realitas. Tidak bisa dideteksi oleh sensor, sihir, atau penginderaan kosmik (termasuk Omniscience Imawri).</li>
+            <li><strong>Absolute Containment Drive:</strong> Fokus konseptual tunggal yang tidak bisa dimanipulasi secara mental—terus memburu dan mengisolasi Imawri.</li>
+            <li><strong>Durability Negation & Lock-on:</strong> Serangannya menembus semua pertahanan fisik dan konseptual entitas kosmik.</li>
+            <li><strong>Zero Footprint:</strong> Tidak meninggalkan jejak fisik—tidak ada sidik jari, DNA, suhu tubuh, atau tekanan udara.</li>
         </ul>
 
-        <div class="section-title">II. FORMULIR PENDAFTARAN ANOMALI BARU</div>
-        <form id="submissionForm" onsubmit="handleFormSubmit(event)">
-            <div class="form-group">
-                <label>1. ID / Code Name Anomali</label>
-                <input type="text" id="formId" class="form-control" placeholder="Contoh: TAO-009 / TAO-104" required>
-            </div>
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Hanya fokus pada Imawri. Tidak peduli pada manusia atau anomali lain kecuali mereka menghalangi misinya. Tidak bisa diarahkan atau dikendalikan.</div>
 
-            <div class="form-group">
-                <label>2. Nama Alias / Gelar Anomali</label>
-                <input type="text" id="formAlias" class="form-control" placeholder="Contoh: The Chrono Parasite / Lord of Silence" required>
-            </div>
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
+        <ul>
+            <li><strong>TAO-009 vs Imawri:</strong> Hasil imbang abadi. TAO-009 dirancang untuk menahan Imawri, tetapi tidak pernah berhasil sepenuhnya.</li>
+            <li><strong>TAO-009 vs Goku:</strong> TAO-009 menang. Tidak terdeteksi, menembus pertahanan.</li>
+            <li><strong>TAO-009 vs Saitama:</strong> TAO-009 menang. Saitama tidak bisa melihat atau menyentuhnya.</li>
+            <li><strong>TAO-009 vs Cardall:</strong> Cardall menang. Cardall melampaui semua konsep, termasuk "anti-cosmic".</li>
+        </ul>
 
-            <div class="form-group">
-                <label>3. Wujud Visual / Form</label>
-                <input type="text" id="formForm" class="form-control" placeholder="Contoh: Humanoid berzirah hitam / Kubus melayang tanpa pantulan cahaya" required>
-            </div>
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>UNCONTAINABLE & UNDETECTABLE.</strong> TAO tidak bisa mengurung atau melacak posisinya. Karena ia hanya fokus pada Imawri, ia diklasifikasikan sebagai unit pasif terhadap manusia—selama tidak ada yang menghalangi aksinya.</p>
 
-            <div class="form-group">
-                <label>4. Klasifikasi Anomali</label>
-                <input type="text" id="formClass" class="form-control" placeholder="Contoh: Reality Warper / Physical Hazard / Spatial Entity" required>
-            </div>
-
-            <div class="form-group">
-                <label>5. Status Penahanan</label>
-                <select id="formStatus" class="form-control" required>
-                    <option value="Containable (Terkurung)">Containable (Terkurung)</option>
-                    <option value="Uncontainable (Tidak Dapat Dikurung)">Uncontainable (Tidak Dapat Dikurung)</option>
-                    <option value="Wandering (Berkeliaran)">Wandering (Berkeliaran)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>6. Tingkat Ancaman (Hazard Level)</label>
-                <input type="text" id="formHazard" class="form-control" placeholder="Contoh: Lethal / Extreme / Catastrophic / Cosmic" required>
-            </div>
-
-            <div class="form-group">
-                <label>7. Tier / Scaling (Versus Battle Scale)</label>
-                <input type="text" id="formTier" class="form-control" placeholder="Contoh: Tier 1-A Outerverse / Planetary / Wall Level" required>
-            </div>
-
-            <div class="form-group">
-                <label>8. Attack Potency (AP) / Strength</label>
-                <input type="text" id="formAP" class="form-control" placeholder="Contoh: Menghancurkan konsep ruang / Multiversal / Building Level" required>
-            </div>
-
-            <div class="form-group">
-                <label>9. Speed & Reaction</label>
-                <input type="text" id="formSpeed" class="form-control" placeholder="Contoh: Irrelevant / Speed of Light / Subsonic" required>
-            </div>
-
-            <div class="form-group">
-                <label>10. Durability & Stamina</label>
-                <input type="text" id="formDurability" class="form-control" placeholder="Contoh: Conceptual Invulnerability / Infinite Stamina" required>
-            </div>
-
-            <div class="form-group">
-                <label>11. IQ & Combat Intelligence</label>
-                <input type="text" id="formIQ" class="form-control" placeholder="Contoh: Boundless IQ / Genius Strategist / Mindless Beast" required>
-            </div>
-
-            <div class="form-group">
-                <label>12. Hax / Special Abilities (Pisahkan dengan koma atau baris baru)</label>
-                <textarea id="formHax" class="form-control" placeholder="Contoh: Time Rewind, Durability Negation, Reality Warping, Mind Control..." required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>13. Deskripsi & Lore Ringkas</label>
-                <textarea id="formLore" class="form-control" placeholder="Jelaskan asal-usul, sifat, dan sejarah ditemukannya anomali ini..." required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>14. Prosedur Penahanan Khusus (Containment Procedures)</label>
-                <textarea id="formContainment" class="form-control" placeholder="Jelaskan instruksi cara TAO menahan atau mengawasi anomali ini..." required></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">KIRIM PENGAJUAN ANOMALI</button>
-        </form>
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
     </main>
 
-    <!-- TAB FITUR: ANOMALI KOMUNITAS (LIST ACC & PENDING ADMIN) -->
-    <main id="community-tab" class="anomaly-card tab-content">
+    <!-- ============================================ -->
+    <!-- TAO-010: THE SHATTERED AEGIS — DETAIL      -->
+    <!-- ============================================ -->
+    <main id="tao-010" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-010</span></div>
+
         <div class="badge-container">
-            <span class="badge badge-tier">Community Submitted Anomalies</span>
-            <span class="badge badge-status">Admin Panel Ready</span>
+            <span class="badge badge-tier">Tier 1-B: Hyperversal</span>
+            <span class="badge badge-status">Containable (Extreme Risk)</span>
+            <span class="badge badge-clearance">Clearance Level 4</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="death-battle-tag">⚔️ DEATH BATTLE</span>
         </div>
 
-        <h1 class="anomaly-id">DIREKTORI ANOMALI KOMUNITAS</h1>
-        <div class="anomaly-alias">Daftar Anomali yang Telah Di-ACC & Menunggu Peninjauan Admin</div>
+        <h1 class="anomaly-id">A-ID TAO-010: "THE SHATTERED AEGIS"</h1>
+        <div class="anomaly-alias">Perisai Realitas yang Retak / Paradox Shield / Pemantul Absolut</div>
 
-        <div id="communityAnomaliesList">
-            <!-- Tempat Anomali Komunitas Ditampilkan via JavaScript -->
+        <div class="info-grid">
+            <div class="info-item"><span>Wujud</span><strong>Perisai Kristal Hitam dengan Retakan Emas (1.2m)</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Defensive Anomaly / Reality Paradox</strong></div>
+            <div class="info-item"><span>Status</span><strong>Terkurung Sektor-12</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Extreme / Reality Collapse</strong></div>
+            <div class="info-item"><span>AP</span><strong>Hyperversal</strong></div>
+            <div class="info-item"><span>Speed</span><strong>Reactionary</strong></div>
+            <div class="info-item"><span>Durability</span><strong>Hyperversal Invulnerability</strong></div>
+            <div class="info-item"><span>IQ</span><strong>N/A (Responsif)</strong></div>
         </div>
+
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p>TAO-010 adalah perisai bundar dari kristal hitam pekat dengan retakan-retakan emas yang memancarkan cahaya redup. Ditemukan di reruntuhan Sektor-17, tertanam di pusat kawah yang memancarkan radiasi ruang-waktu terdistorsi. Sifat utamanya adalah pertahanan absolut berbasis pantulan konseptual—setiap serangan yang mengenai permukaannya dipantulkan kembali dengan amplifikasi 10x lipat. Jika beban serangan melampaui batas, ia memicu "Shatter Protocol"—ledakan yang menghapus realitas di sekitarnya.</p>
+
+        <div class="lore-connection"><strong>🔗 ASAL:</strong> Pecahan konsep "pertahanan" yang hancur. Memantulkan serangan karena tidak bisa membedakan "menyerang" dan "bertahan".</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN</div>
+        <ul>
+            <li><strong>Absolute Reflection (10x):</strong> Memantulkan semua serangan dengan kekuatan 10 kali lipat. Bekerja pada serangan fisik, energi, sihir, dan konseptual.</li>
+            <li><strong>Shatter Protocol (Reality Collapse):</strong> Jika beban serangan melampaui batas atau retakan mencapai 100%, perisai meledak dan menghapus realitas di radius tertentu (dari galaksi hingga multiversal).</li>
+            <li><strong>Passive Damage Absorption:</strong> Menyerap 99% energi serangan, hanya menyisakan 1% untuk dipantulkan—tetapi tetap dengan amplifikasi 10x.</li>
+            <li><strong>Conceptual Invulnerability:</strong> Tidak bisa dihancurkan oleh manipulasi konsep, penghapusan eksistensi, atau serangan yang menargetkan "keberadaan" perisai.</li>
+        </ul>
+
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Semakin sering digunakan, retakan emas semakin melebar. Jika retakan mencapai 100%, Shatter Protocol aktif otomatis—menghancurkan pengguna dan musuh sekaligus.</div>
+
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
+        <ul>
+            <li><strong>TAO-010 vs Goku:</strong> Goku menyerang → dipantulkan 10x lipat. Goku kena serangannya sendiri.</li>
+            <li><strong>TAO-010 vs Saitama:</strong> Saitama one punch → dipantulkan 10x lipat. Saitama kena pukulannya sendiri.</li>
+            <li><strong>TAO-010 vs TAO-007 (Gorgoroth):</strong> Tank vs Tank — siapa lebih tahan? Gorgoroth menyerang → dipantulkan → Gorgoroth kena serangannya sendiri. Tapi Gorgoroth punya Adapto-Density Armor.</li>
+            <li><strong>TAO-010 vs TAO-002 (Imawri):</strong> Pantulan 10x vs Pantulan 10x — infinite loop? Hasilnya kehancuran timbal balik.</li>
+            <li><strong>TAO-010 vs Cardall:</strong> Cardall tidak menyerang. Ia hanya mengubah Aegis menjadi kartu.</li>
+        </ul>
+
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>CONTAINED (EXTREME RISK).</strong> Disimpan di Sektor-12, Vault Kuantum, dalam ruang hampa dimensi terisolasi dengan Generator Medan Inersia Konseptual untuk memperlambat perluasan retakan. Jika retakan mencapai 85%, evakuasi sektor dan aktifkan Protokol Pemisahan Dimensi.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
     </main>
 
+    <!-- ============================================ -->
+    <!-- TAO-011: THE ECHOING NULL — DETAIL          -->
+    <!-- ============================================ -->
+    <main id="tao-011" class="anomaly-card tab-content">
+        <div class="breadcrumb"><a onclick="switchTab('home')">🏠 Home</a><span class="separator">›</span><span>TAO-011</span></div>
+
+        <div class="badge-container">
+            <span class="badge badge-tier">Tier 1-A: Outerverse</span>
+            <span class="badge badge-status">Uncontainable</span>
+            <span class="badge badge-clearance">Clearance Level 4</span>
+            <span class="badge badge-updated">📅 Diperbarui: 2026-09-05</span>
+            <span class="death-battle-tag">⚔️ DEATH BATTLE</span>
+        </div>
+
+        <h1 class="anomaly-id">A-ID TAO-011: "THE ECHOING NULL"</h1>
+        <div class="anomaly-alias">Gema Ketiadaan / Mirror of Existence / Peniru Absolut</div>
+
+        <div class="info-grid">
+            <div class="info-item"><span>Wujud</span><strong>Humanoid Cairan Hitam-Putih Berkilau</strong></div>
+            <div class="info-item"><span>Klasifikasi</span><strong>Mimicry Entity / Memory Parasite</strong></div>
+            <div class="info-item"><span>Status</span><strong>Berkeliaran Sektor-88</strong></div>
+            <div class="info-item"><span>Ancaman</span><strong>Identity Erasure Hazard</strong></div>
+            <div class="info-item"><span>AP</span><strong>Outerversal (via Mimicry)</strong></div>
+            <div class="info-item"><span>Speed</span><strong>Irrelevant (Adaptif)</strong></div>
+            <div class="info-item"><span>Durability</span><strong>Outerversal (Non-Existence)</strong></div>
+            <div class="info-item"><span>IQ</span><strong>Variable (Tergantung Memori)</strong></div>
+        </div>
+
+        <div class="section-title">I. SIFAT EKSISTENSI</div>
+        <p>TAO-011 adalah entitas humanoid cairan hitam-putih yang tidak memiliki wajah atau bentuk tetap—tubuhnya terus berubah meniru makhluk yang pernah dilihatnya. Ia muncul dari celah dimensional di Sektor-88. Kemampuan utamanya adalah meniru semua kemampuan, kekuatan, dan hax target secara sempurna. Namun, setiap kali meniru, ia kehilangan sebagian memori dan identitasnya sendiri—semakin kuat target, semakin besar memori yang hilang.</p>
+
+        <div class="lore-connection"><strong>🔗 HUBUNGAN:</strong> Echoing Null adalah anggota Dewan Penjaga Realitas, memegang aspek identitas & ingatan. Ia menjaga agar realitas tidak "lupa" siapa dirinya.</div>
+
+        <div class="section-title">II. HAX & KEMAMPUAN</div>
+        <ul>
+            <li><strong>Perfect Mimicry:</strong> Meniru semua kemampuan, atribut, dan hax target dengan akurasi 100%—termasuk Boundless IQ dan Absolute Transcendence (tapi dengan biaya memori besar).</li>
+            <li><strong>Memory Parasite:</strong> Menyerap sebagian memori target saat meniru, memperkaya pengetahuannya tetapi mengorbankan identitasnya sendiri.</li>
+            <li><strong>Identity Erosion:</strong> Setiap meniru, kehilangan 5-10% ingatan dan identitas. Jika mencapai 0%, ia lenyap menjadi Null Existence.</li>
+            <li><strong>Void State:</strong> Saat tidak meniru, ia berada dalam status "tidak terdeteksi" dan "tidak bisa diserang". Hanya bisa diserang saat aktif meniru.</li>
+            <li><strong>Adaptive Evolution:</strong> Jika target punya kemampuan yang tidak bisa ditiru langsung (misal: Absolute Boundless), ia mengembangkan "versi redup"—dengan biaya memori lebih besar.</li>
+        </ul>
+
+        <div class="weakness-box"><strong>⚠️ KELEMAHAN:</strong> Semakin sering meniru, semakin kehilangan identitas. Jika kehilangan 100% ingatan, ia menjadi Null Existence dan lenyap. Juga tidak bisa meniru Cardall sepenuhnya karena Cardall melampaui semua konsep.</div>
+
+        <div class="section-title">III. DEATH BATTLE NOTES</div>
+        <ul>
+            <li><strong>TAO-011 vs Goku:</strong> Echoing Null meniru semua kemampuan Goku → pertarungan seimbang. Tapi Echoing Null kehilangan memori.</li>
+            <li><strong>TAO-011 vs Saitama:</strong> Echoing Null meniru kekuatan Saitama → Saitama vs dirinya sendiri. Echoing Null kehilangan memori.</li>
+            <li><strong>TAO-011 vs TAO-002 (Imawri):</strong> Echoing Null meniru Imawri → pertarungan seimbang. Tapi Echoing Null kehilangan banyak memori.</li>
+            <li><strong>TAO-011 vs TAO-008 (Vaelis):</strong> Echoing Null meniru Vaelis → Null-Blade vs Null-Blade. Echoing Null kehilangan memori.</li>
+            <li><strong>TAO-011 vs Cardall:</strong> Echoing Null mencoba meniru Cardall → kehilangan 100% memori dan lenyap. Cardall tidak bisa ditiru.</li>
+        </ul>
+
+        <div class="section-title">IV. E-PROTOCOL</div>
+        <p><strong>UNCONTAINABLE.</strong> Tidak bisa dikurung secara fisik. Pendekatan terbaik: hindari kontak langsung dan jangan tunjukkan kemampuan ofensif di hadapannya. Jika ia sudah meniru seseorang, isolasi target asli dan biarkan ia pergi. Jika meniru entitas berbahaya, aktifkan Protokol Penghapusan Identitas—mengingatkan ia tentang identitas aslinya untuk mempercepat kehilangan memori.</p>
+
+        <div class="admin-controls"><button class="btn-quick-view" onclick="switchTab('home')">⬅ Kembali</button></div>
+    </main>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
     <footer>
-        DOKUMEN RAHASIA ORGANISASI TAO &copy; 2026. HANYA UNTUK PERSONEL BERIZIN LEVEL 5.
+        <div class="footer-links">
+            <a onclick="switchTab('home')">🏠 Home</a>
+            <a onclick="switchTab('history')">📜 Sejarah</a>
+            <a href="#" onclick="goToRandomAnomaly(); return false;">🎲 Random</a>
+        </div>
+        <p>DOKUMEN RAHASIA ORGANISASI TAO &copy; 2026 — HANYA UNTUK PERSONEL BERIZIN LEVEL 5</p>
+        <p style="font-size: 10px; margin-top: 4px; opacity: 0.6;">v5.0 — Semua Anomali Terperinci & Siap Death Battle 🔥</p>
     </footer>
 
-    <!-- Script Fungsi Pindah Tab & Manajemen Pengajuan Anomali -->
+    <!-- ============================================ -->
+    <!-- SCRIPT                                       -->
+    <!-- ============================================ -->
     <script>
         function switchTab(tabId) {
-            // Sembunyikan semua konten tab
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
+            const spinner = document.getElementById('loadingSpinner');
+            spinner.classList.add('active');
 
-            // Nonaktifkan semua tombol
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(button => button.classList.remove('active'));
+            setTimeout(() => {
+                const contents = document.querySelectorAll('.tab-content');
+                contents.forEach(content => content.classList.remove('active'));
 
-            // Tampilkan tab yang dipilih
-            document.getElementById(tabId).classList.add('active');
+                const buttons = document.querySelectorAll('.tab-btn');
+                buttons.forEach(button => button.classList.remove('active'));
 
-            // Aktifkan tombol yang diklik
-            const activeBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(`'${tabId}'`));
-            if (activeBtn) activeBtn.classList.add('active');
+                const targetContent = document.getElementById(tabId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
 
-            // Scroll halus ke atas saat pindah tab
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+                const activeBtn = Array.from(buttons).find(btn => {
+                    const onclickAttr = btn.getAttribute('onclick');
+                    return onclickAttr && onclickAttr.includes(`'${tabId}'`);
+                });
+                if (activeBtn) activeBtn.classList.add('active');
+
+                spinner.classList.remove('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 300);
         }
 
-        // UPDATE: Fungsi Filter Pencarian Direktori TAO
         function filterTaoDirectory() {
             const input = document.getElementById('taoSearchInput');
             const filter = input.value.toLowerCase();
@@ -1167,136 +1423,16 @@
             }
         }
 
-        // --- SISTEM MANAGEMENT ANOMALI KOMUNITAS (LOCAL STORAGE) ---
-
-        // Inisialisasi Data dari LocalStorage
-        function getStoredAnomalies() {
-            const data = localStorage.getItem('tao_community_anomalies');
-            return data ? JSON.parse(data) : [];
+        function goToRandomAnomaly() {
+            const tabs = ['tao-001', 'tao-002', 'tao-003', 'tao-004', 'tao-005', 'tao-006', 'tao-007', 'tao-008', 'tao-009', 'tao-010', 'tao-011'];
+            const randomTab = tabs[Math.floor(Math.random() * tabs.length)];
+            switchTab(randomTab);
         }
 
-        function saveStoredAnomalies(anomalies) {
-            localStorage.setItem('tao_community_anomalies', JSON.stringify(anomalies));
-        }
-
-        // Handle Pengajuan Form
-        function handleFormSubmit(e) {
-            e.preventDefault();
-
-            const newAnomaly = {
-                idIndex: Date.now(),
-                id: document.getElementById('formId').value,
-                alias: document.getElementById('formAlias').value,
-                form: document.getElementById('formForm').value,
-                classification: document.getElementById('formClass').value,
-                status: document.getElementById('formStatus').value,
-                hazard: document.getElementById('formHazard').value,
-                tier: document.getElementById('formTier').value,
-                ap: document.getElementById('formAP').value,
-                speed: document.getElementById('formSpeed').value,
-                durability: document.getElementById('formDurability').value,
-                iq: document.getElementById('formIQ').value,
-                hax: document.getElementById('formHax').value,
-                lore: document.getElementById('formLore').value,
-                containment: document.getElementById('formContainment').value,
-                isApproved: false // Default status PENDING
-            };
-
-            const anomalies = getStoredAnomalies();
-            anomalies.push(newAnomaly);
-            saveStoredAnomalies(anomalies);
-
-            alert("Pengajuan Anomali Berhasil Dikirim! Status saat ini: PENDING. Silakan cek tab 'ANOMALI KOMUNITAS' untuk di-ACC atau Ditolak.");
-            document.getElementById('submissionForm').reset();
-            renderCommunityAnomalies();
-            switchTab('community-tab');
-        }
-
-        // Render List Anomali Komunitas
-        function renderCommunityAnomalies() {
-            const listContainer = document.getElementById('communityAnomaliesList');
-            const anomalies = getStoredAnomalies();
-
-            if (anomalies.length === 0) {
-                listContainer.innerHTML = '<p style="text-align:center; padding: 20px 0;">Belum ada anomali yang diajukan oleh komunitas.</p>';
-                return;
-            }
-
-            let html = '';
-            anomalies.forEach((item) => {
-                const statusBadge = item.isApproved 
-                    ? `<span class="badge badge-tier">STATUS: ACC (APPROVED)</span>` 
-                    : `<span class="badge badge-pending">STATUS: PENDING (MENUNGGU ACC)</span>`;
-
-                html += `
-                    <div class="anomaly-card" style="margin-top:20px; border-color: ${item.isApproved ? 'var(--accent-green)' : 'var(--accent-blue)'}">
-                        <div class="badge-container">
-                            ${statusBadge}
-                            <span class="badge badge-status">${item.status}</span>
-                            <span class="badge badge-tier">${item.tier}</span>
-                        </div>
-
-                        <h2 class="anomaly-id">${item.id}: "${item.alias}"</h2>
-                        <div class="anomaly-alias">Form: ${item.form}</div>
-
-                        <div class="info-grid">
-                            <div class="info-item"><span>Klasifikasi</span><strong>${item.classification}</strong></div>
-                            <div class="info-item"><span>Tingkat Ancaman</span><strong>${item.hazard}</strong></div>
-                            <div class="info-item"><span>Attack Potency</span><strong>${item.ap}</strong></div>
-                            <div class="info-item"><span>Speed</span><strong>${item.speed}</strong></div>
-                            <div class="info-item"><span>Durability</span><strong>${item.durability}</strong></div>
-                            <div class="info-item"><span>IQ & Intellect</span><strong>${item.iq}</strong></div>
-                        </div>
-
-                        <div class="section-title">I. SPECIAL HAX & ABILITIES</div>
-                        <p>${item.hax.replace(/\n/g, '<br>')}</p>
-
-                        <div class="section-title">II. LORE & DESKRIPSI</div>
-                        <p>${item.lore.replace(/\n/g, '<br>')}</p>
-
-                        <div class="section-title">III. PROSEDUR PENANAHAN KHUSUS</div>
-                        <p>${item.containment.replace(/\n/g, '<br>')}</p>
-
-                        <!-- ADMIN ACTION CONTROLS -->
-                        <div class="admin-controls">
-                            ${!item.isApproved ? `<button class="btn-acc" onclick="approveAnomaly(${item.idIndex})">✓ ACC (Setujui)</button>` : ''}
-                            <button class="btn-reject" onclick="deleteAnomaly(${item.idIndex})">✕ Reject / Hapus</button>
-                        </div>
-                    </div>
-                `;
-            });
-
-            listContainer.innerHTML = html;
-        }
-
-        // ACC Anomali
-        function approveAnomaly(idIndex) {
-            let anomalies = getStoredAnomalies();
-            anomalies = anomalies.map(item => {
-                if (item.idIndex === idIndex) {
-                    item.isApproved = true;
-                }
-                return item;
-            });
-            saveStoredAnomalies(anomalies);
-            renderCommunityAnomalies();
-        }
-
-        // Reject / Hapus Anomali
-        function deleteAnomaly(idIndex) {
-            if (confirm("Apakah kamu yakin ingin menolak/menghapus pengajuan anomali ini?")) {
-                let anomalies = getStoredAnomalies();
-                anomalies = anomalies.filter(item => item.idIndex !== idIndex);
-                saveStoredAnomalies(anomalies);
-                renderCommunityAnomalies();
-            }
-        }
-
-        // Load saat pertama kali buka
         window.onload = function() {
-            renderCommunityAnomalies();
+            // Default active sudah di set di HTML
         };
     </script>
 
 </body>
-</html>
+    </html>
